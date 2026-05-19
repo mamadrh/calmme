@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmMe - Meditation Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background -->
+    <div class="background"></div>
+
+    <!-- Header with Audio Controls -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="title">🧘 CalmMe</h1>
+            
+            <div class="audio-controls">
+                <!-- Play/Pause Controls -->
+                <div class="control-group">
+                    <button class="control-btn" id="playBtn" title="Play rain sounds">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="control-btn" id="pauseBtn" title="Pause rain sounds" style="display: none;">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                </div>
+
+                <!-- Volume Control -->
+                <div class="volume-control">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
+                    <span id="volumeLabel" class="volume-label">50%</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="meditation-grid">
+            <!-- Card 1: Mindfulness -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&fit=crop');">
+                    <span class="card-label">Mindfulness</span>
+                </button>
+            </div>
+
+            <!-- Card 2: Breathing -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&fit=crop');">
+                    <span class="card-label">Breathing</span>
+                </button>
+            </div>
+
+            <!-- Card 3: Relaxation -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1551431009-381d36ac3a14?w=400&fit=crop');">
+                    <span class="card-label">Relaxation</span>
+                </button>
+            </div>
+
+            <!-- Card 4: Sleep -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1495019687602-3b29c1269f5f?w=400&fit=crop');">
+                    <span class="card-label">Sleep</span>
+                </button>
+            </div>
+
+            <!-- Card 5: Focus -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1518894917744-24629b814dae?w=400&fit=crop');">
+                    <span class="card-label">Focus</span>
+                </button>
+            </div>
+
+            <!-- Card 6: Gratitude -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1494759807633-55876021852c?w=400&fit=crop');">
+                    <span class="card-label">Gratitude</span>
+                </button>
+            </div>
+
+            <!-- Card 7: Energy -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&fit=crop');">
+                    <span class="card-label">Energy</span>
+                </button>
+            </div>
+
+            <!-- Card 8: Healing -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1551431009-381d36ac3a14?w=400&fit=crop');">
+                    <span class="card-label">Healing</span>
+                </button>
+            </div>
+
+            <!-- Card 9: Anxiety -->
+            <div class="meditation-card">
+                <button class="circular-btn" style="background-image: url('https://images.unsplash.com/photo-1495019687602-3b29c1269f5f?w=400&fit=crop');">
+                    <span class="card-label">Anxiety</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Audio Element -->
+    <audio id="rainAudio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_d5d5d0cef.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
