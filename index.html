@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Background -->
+    <!-- Jungle Rainforest Background -->
     <div class="background"></div>
 
     <!-- Main Content -->
@@ -80,37 +80,31 @@
         </div>
     </main>
 
-    <!-- Audio Player at Bottom -->
-    <footer class="audio-footer">
+    <!-- Audio Player - Bottom -->
+    <footer class="audio-player">
         <div class="player-container">
-            <div class="player-info">
-                <h3>🌧️ Rainforest Ambiance</h3>
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <input type="range" id="progressSlider" class="progress-slider" min="0" max="100" value="0">
+                <span id="timeDisplay" class="time-display">0:00 / 0:00</span>
             </div>
 
+            <!-- Player Controls -->
             <div class="player-controls">
                 <!-- Play/Pause Button -->
-                <button class="player-btn play-pause" id="playPauseBtn" title="Play">
+                <button class="control-btn" id="playPauseBtn" title="Play/Pause">
                     <i class="fas fa-play"></i>
                 </button>
 
-                <!-- Progress Bar -->
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                        <input type="range" id="progressSlider" class="progress-slider" min="0" max="100" value="0">
-                    </div>
-                    <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
-                </div>
-
                 <!-- Volume Control -->
-                <div class="volume-container">
+                <div class="volume-control">
                     <span class="volume-icon">🔊</span>
                     <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
-                    <span class="volume-percentage" id="volumePercentage">50%</span>
+                    <span id="volumePercentage" class="volume-percentage">50%</span>
                 </div>
 
                 <!-- Loop Button -->
-                <button class="player-btn loop-btn" id="loopBtn" title="Loop">
+                <button class="control-btn" id="loopBtn" title="Loop">
                     <i class="fas fa-redo"></i>
                 </button>
             </div>
