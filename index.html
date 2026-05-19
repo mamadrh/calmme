@@ -12,32 +12,6 @@
     <!-- Background -->
     <div class="background"></div>
 
-    <!-- Header with Audio Controls -->
-    <header class="header">
-        <div class="header-content">
-            <h1 class="title">🧘 CalmMe</h1>
-            
-            <div class="audio-controls">
-                <!-- Play/Pause Controls -->
-                <div class="control-group">
-                    <button class="control-btn" id="playBtn" title="Play rain sounds">
-                        <i class="fas fa-play"></i>
-                    </button>
-                    <button class="control-btn" id="pauseBtn" title="Pause rain sounds" style="display: none;">
-                        <i class="fas fa-pause"></i>
-                    </button>
-                </div>
-
-                <!-- Volume Control -->
-                <div class="volume-control">
-                    <span class="volume-icon">🔊</span>
-                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
-                    <span id="volumeLabel" class="volume-label">50%</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <!-- Main Content -->
     <main class="main-content">
         <div class="meditation-grid">
@@ -105,6 +79,43 @@
             </div>
         </div>
     </main>
+
+    <!-- Audio Player at Bottom -->
+    <footer class="audio-footer">
+        <div class="player-container">
+            <div class="player-info">
+                <h3>🌧️ Rainforest Ambiance</h3>
+            </div>
+
+            <div class="player-controls">
+                <!-- Play/Pause Button -->
+                <button class="player-btn play-pause" id="playPauseBtn" title="Play">
+                    <i class="fas fa-play"></i>
+                </button>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                        <input type="range" id="progressSlider" class="progress-slider" min="0" max="100" value="0">
+                    </div>
+                    <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+                </div>
+
+                <!-- Volume Control -->
+                <div class="volume-container">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
+                    <span class="volume-percentage" id="volumePercentage">50%</span>
+                </div>
+
+                <!-- Loop Button -->
+                <button class="player-btn loop-btn" id="loopBtn" title="Loop">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
 
     <!-- Audio Element -->
     <audio id="rainAudio" loop>
