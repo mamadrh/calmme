@@ -3,156 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CalmMe V2 - Mindfulness Portals</title>
+    <title>CalmMe - Mindfulness Portals</title>
     <link rel="stylesheet" href="styles-v2.css">
-    <link rel="stylesheet" href="mindfulness-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Lightweight Portal Styles - Prevent heavy rendering */
-        .portal-sphere {
-            will-change: transform;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-        }
-    </style>
 </head>
 <body>
     <!-- Space Background with Stars -->
     <div class="background"></div>
 
+    <!-- Back Button -->
+    <a href="index-v2.html" class="mindfulness-back-btn" title="Back to Meditations">
+        <i class="fas fa-chevron-left"></i>
+    </a>
+
     <!-- Main Container -->
     <div class="container">
-        <!-- Header with Back Button -->
+        <!-- Header -->
         <div class="mindfulness-header">
-            <a href="index-v2.html" class="back-button" title="Back to Home">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-            <h1 class="mindfulness-title">Mindfulness Portals</h1>
-            <div class="spacer"></div>
+            <h1>Mindfulness Portals</h1>
+            <p>Step into a world of meditation</p>
         </div>
 
         <!-- Sphere Section -->
         <div class="sphere-section">
-            <div id="swipeHint" style="display: none;">
-                👉 Swipe or use arrow keys 👈
-            </div>
-            
             <div class="sphere-wrapper">
-                <!-- Portal 1: Jungle -->
-                <div class="sphere portal-sphere active" data-portal="jungle">
-                    <div class="portal-background jungle"></div>
-                    <div class="sphere-content">
+                <!-- Portal 1: Jungle Haven -->
+                <div class="sphere portal-sphere active" data-index="0">
+                    <div class="portal-container">
+                        <div class="portal-image jungle-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-leaf"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-leaf"></i></div>
+                            <div class="portal-name">Jungle Haven</div>
+                            <div class="portal-description">Lush & vibrant</div>
                         </div>
-                        <div class="sphere-name">Jungle Sanctuary</div>
-                        <div class="sphere-description">Immerse in lush greenery</div>
                     </div>
                 </div>
 
-                <!-- Portal 2: Seaside -->
-                <div class="sphere portal-sphere" data-portal="seaside">
-                    <div class="portal-background seaside"></div>
-                    <div class="sphere-content">
+                <!-- Portal 2: Seaside Calm -->
+                <div class="sphere portal-sphere" data-index="1">
+                    <div class="portal-container">
+                        <div class="portal-image seaside-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-water"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-water"></i></div>
+                            <div class="portal-name">Seaside Calm</div>
+                            <div class="portal-description">Ocean breeze</div>
                         </div>
-                        <div class="sphere-name">Seaside Haven</div>
-                        <div class="sphere-description">Relax by the ocean waves</div>
                     </div>
                 </div>
 
-                <!-- Portal 3: Waterfall -->
-                <div class="sphere portal-sphere" data-portal="waterfall">
-                    <div class="portal-background waterfall"></div>
-                    <div class="sphere-content">
+                <!-- Portal 3: Mountain Peak -->
+                <div class="sphere portal-sphere" data-index="2">
+                    <div class="portal-container">
+                        <div class="portal-image mountain-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-water"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-mountain"></i></div>
+                            <div class="portal-name">Mountain Peak</div>
+                            <div class="portal-description">High & clear</div>
                         </div>
-                        <div class="sphere-name">Waterfall Retreat</div>
-                        <div class="sphere-description">Feel the cascading waters</div>
                     </div>
                 </div>
 
-                <!-- Portal 4: Mountain -->
-                <div class="sphere portal-sphere" data-portal="mountain">
-                    <div class="portal-background mountain"></div>
-                    <div class="sphere-content">
+                <!-- Portal 4: Forest Peace -->
+                <div class="sphere portal-sphere" data-index="3">
+                    <div class="portal-container">
+                        <div class="portal-image forest-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-mountain"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-tree"></i></div>
+                            <div class="portal-name">Forest Peace</div>
+                            <div class="portal-description">Ancient trees</div>
                         </div>
-                        <div class="sphere-name">Mountain Peak</div>
-                        <div class="sphere-description">Meditate above the clouds</div>
                     </div>
                 </div>
 
-                <!-- Portal 5: Forest -->
-                <div class="sphere portal-sphere" data-portal="forest">
-                    <div class="portal-background forest"></div>
-                    <div class="sphere-content">
+                <!-- Portal 5: Desert Stillness -->
+                <div class="sphere portal-sphere" data-index="4">
+                    <div class="portal-container">
+                        <div class="portal-image desert-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-tree"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-sun"></i></div>
+                            <div class="portal-name">Desert Stillness</div>
+                            <div class="portal-description">Golden silence</div>
                         </div>
-                        <div class="sphere-name">Forest Peace</div>
-                        <div class="sphere-description">Walk through peaceful trees</div>
                     </div>
                 </div>
 
-                <!-- Portal 6: Desert -->
-                <div class="sphere portal-sphere" data-portal="desert">
-                    <div class="portal-background desert"></div>
-                    <div class="sphere-content">
+                <!-- Portal 6: Crystal Lake -->
+                <div class="sphere portal-sphere" data-index="5">
+                    <div class="portal-container">
+                        <div class="portal-image lake-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-sun"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-water"></i></div>
+                            <div class="portal-name">Crystal Lake</div>
+                            <div class="portal-description">Mirror stillness</div>
                         </div>
-                        <div class="sphere-name">Desert Serenity</div>
-                        <div class="sphere-description">Find stillness in silence</div>
                     </div>
                 </div>
 
-                <!-- Portal 7: Lake -->
-                <div class="sphere portal-sphere" data-portal="lake">
-                    <div class="portal-background lake"></div>
-                    <div class="sphere-content">
+                <!-- Portal 7: Aurora Lights -->
+                <div class="sphere portal-sphere" data-index="6">
+                    <div class="portal-container">
+                        <div class="portal-image aurora-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-water"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-star"></i></div>
+                            <div class="portal-name">Aurora Lights</div>
+                            <div class="portal-description">Celestial dance</div>
                         </div>
-                        <div class="sphere-name">Tranquil Lake</div>
-                        <div class="sphere-description">Mirror-like calm waters</div>
                     </div>
                 </div>
 
-                <!-- Portal 8: Aurora -->
-                <div class="sphere portal-sphere" data-portal="aurora">
-                    <div class="portal-background aurora"></div>
-                    <div class="sphere-content">
+                <!-- Portal 8: Waterfall Retreat -->
+                <div class="sphere portal-sphere" data-index="7">
+                    <div class="portal-container">
+                        <div class="portal-image waterfall-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-star"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-water"></i></div>
+                            <div class="portal-name">Waterfall Retreat</div>
+                            <div class="portal-description">Flowing waters</div>
                         </div>
-                        <div class="sphere-name">Aurora Borealis</div>
-                        <div class="sphere-description">Dance with northern lights</div>
                     </div>
                 </div>
 
                 <!-- Portal 9: Zen Garden -->
-                <div class="sphere portal-sphere" data-portal="zengarden">
-                    <div class="portal-background zengarden"></div>
-                    <div class="sphere-content">
+                <div class="sphere portal-sphere" data-index="8">
+                    <div class="portal-container">
+                        <div class="portal-image zengardens-portal"></div>
+                        <div class="portal-ring"></div>
                         <div class="portal-overlay"></div>
-                        <div class="sphere-icon">
-                            <i class="fas fa-spa"></i>
+                        <div class="portal-content">
+                            <div class="portal-icon"><i class="fas fa-spa"></i></div>
+                            <div class="portal-name">Zen Garden</div>
+                            <div class="portal-description">Harmony & balance</div>
                         </div>
-                        <div class="sphere-name">Zen Garden</div>
-                        <div class="sphere-description">Harmonious rock and sand</div>
                     </div>
                 </div>
             </div>
@@ -160,56 +157,22 @@
 
         <!-- Navigation Dots -->
         <div class="dots-container">
-            <div class="dot active" data-index="0"></div>
-            <div class="dot" data-index="1"></div>
-            <div class="dot" data-index="2"></div>
-            <div class="dot" data-index="3"></div>
-            <div class="dot" data-index="4"></div>
-            <div class="dot" data-index="5"></div>
-            <div class="dot" data-index="6"></div>
-            <div class="dot" data-index="7"></div>
-            <div class="dot" data-index="8"></div>
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+            <span class="dot" data-index="3"></span>
+            <span class="dot" data-index="4"></span>
+            <span class="dot" data-index="5"></span>
+            <span class="dot" data-index="6"></span>
+            <span class="dot" data-index="7"></span>
+            <span class="dot" data-index="8"></span>
         </div>
     </div>
 
-    <!-- Audio Player -->
-    <footer class="audio-player">
-        <div class="player-container">
-            <!-- Progress Bar -->
-            <div class="progress-container">
-                <input type="range" id="progressSlider" class="progress-slider" min="0" max="100" value="0">
-                <span id="timeDisplay" class="time-display">0:00 / 0:00</span>
-            </div>
-
-            <!-- Player Controls -->
-            <div class="player-controls">
-                <!-- Play/Pause Button -->
-                <button class="control-btn" id="playPauseBtn" title="Play/Pause">
-                    <i class="fas fa-play"></i>
-                </button>
-
-                <!-- Volume Control -->
-                <div class="volume-control">
-                    <span class="volume-icon">🔊</span>
-                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
-                    <span id="volumePercentage" class="volume-percentage">50%</span>
-                </div>
-
-                <!-- Loop Button -->
-                <button class="control-btn" id="loopBtn" title="Loop">
-                    <i class="fas fa-redo"></i>
-                </button>
-            </div>
-        </div>
-    </footer>
-
     <!-- Audio Element -->
-    <audio id="rainAudio" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_d5d5d0cef.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <audio id="portalAudio" preload="auto"></audio>
 
-    <!-- Lightweight Script - Optimized for performance -->
-    <script src="mindfulness-script.js" defer></script>
+    <!-- Script -->
+    <script src="mindfulness-script-v2.js" defer></script>
 </body>
 </html>
