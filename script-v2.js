@@ -52,17 +52,36 @@ function updateSphere(index) {
             relativePos += totalSpheres;
         }
 
-        // Calculate transforms with improved 3D perspective
-        const scale = Math.abs(relativePos) === 0 ? 1 : 0.7;
-        const translateX = relativePos * 500;
-        const rotateY = relativePos * 45;
-        const opacity = Math.abs(relativePos) <= 1 ? (1 - Math.abs(relativePos) * 0.3) : 0;
-        const zIndex = Math.abs(relativePos) === 0 ? 10 : Math.floor(10 - Math.abs(relativePos) * 5);
-
-        sphere.style.transform = `scale(${scale}) translateX(${translateX}px) rotateY(${rotateY}deg)`;
-        sphere.style.opacity = opacity;
-        sphere.style.zIndex = zIndex;
-        sphere.style.pointerEvents = i === index ? 'auto' : 'none';
+        // Only show current and adjacent spheres
+        if (Math.abs(relativePos) <= 1) {
+            // Center sphere (main)
+            if (relativePos === 0) {
+                sphere.style.transform = `translateX(0px) scale(1) translateZ(0px)`;
+                sphere.style.opacity = 1;
+                sphere.style.zIndex = 10;
+                sphere.style.pointerEvents = 'auto';
+            } 
+            // Left sphere (previous)
+            else if (relativePos === -1) {
+                sphere.style.transform = `translateX(-350px) scale(0.65) translateZ(-50px)`;
+                sphere.style.opacity = 0.6;
+                sphere.style.zIndex = 8;
+                sphere.style.pointerEvents = 'none';
+            }
+            // Right sphere (next)
+            else if (relativePos === 1) {
+                sphere.style.transform = `translateX(350px) scale(0.65) translateZ(-50px)`;
+                sphere.style.opacity = 0.6;
+                sphere.style.zIndex = 8;
+                sphere.style.pointerEvents = 'none';
+            }
+        } else {
+            // Hide all other spheres completely
+            sphere.style.opacity = 0;
+            sphere.style.transform = `translateX(${relativePos * 500}px) scale(0.5)`;
+            sphere.style.zIndex = 0;
+            sphere.style.pointerEvents = 'none';
+        }
     });
 
     spheres[index].classList.add('active');
