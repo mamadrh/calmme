@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>CalmMe - Breathing Guide</title>
+    <title>CalmMe - 4-7-8 Breathing</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,370 +14,398 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
             height: 100vh;
             color: white;
+            background: radial-gradient(ellipse at center, #1a1a3f 0%, #0d0d1f 50%, #000000 100%);
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
-        /* Same space background */
-        .background {
+        /* Star animation */
+        .stars {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center, #1a1a3f 0%, #0d0d1f 50%, #000000 100%);
-            z-index: -2;
+            pointer-events: none;
+            z-index: -1;
         }
-
-        .background::before {
+        .stars::before, .stars::after {
             content: '';
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 60px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 50px 50px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 90px 10px, #fff, rgba(0,0,0,0));
+            background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                              radial-gradient(2px 2px at 60px 70px, #eee, rgba(0,0,0,0)),
+                              radial-gradient(1px 1px at 90px 10px, #fff, rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 200px 200px;
-            animation: twinkle 5s ease-in-out infinite;
-            z-index: -1;
+            animation: twinkle 5s infinite;
         }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .background::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: -1;
-        }
+        @keyframes twinkle { 0%,100%{ opacity:0.3; } 50%{ opacity:1; } }
 
         .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            padding: 2rem;
-            position: relative;
-            overflow-y: auto;
+            gap: 1.5rem;
         }
 
         /* Back button */
         .back-btn {
-            position: absolute;
+            position: fixed;
             top: 20px;
             left: 20px;
             background: rgba(255,255,255,0.15);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.3);
             color: white;
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: 40px;
-            font-size: 1rem;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 500;
+            gap: 6px;
+            z-index: 100;
+            transition: 0.2s;
         }
+        .back-btn:hover { background: rgba(255,255,255,0.3); }
 
-        /* No bounce on sphere - removed float animation */
-        .sphere-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        /* Breathing sphere - glassy + glowing, no bounce */
+        /* Breathing Sphere - glassmorphism + glow */
         .sphere {
-            width: 280px;
-            height: 280px;
+            width: 260px;
+            height: 260px;
             border-radius: 50%;
+            background: linear-gradient(135deg, rgba(79,172,254,0.3), rgba(0,242,254,0.2));
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255,255,255,0.4);
+            box-shadow: 0 0 40px rgba(79,172,254,0.5), inset 0 0 30px rgba(255,255,255,0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            background: linear-gradient(135deg, rgba(79, 172, 254, 0.3) 0%, rgba(0, 242, 254, 0.3) 100%);
-            color: #4facfe;
-            box-shadow: 
-                0 0 30px rgba(79, 172, 254, 0.5),
-                0 0 60px rgba(79, 172, 254, 0.3),
-                inset -20px -20px 40px rgba(0, 0, 0, 0.2),
-                inset 15px 15px 30px rgba(255, 255, 255, 0.2);
-            transition: transform 0.05s linear, box-shadow 0.2s ease;
+            transition: transform 0.05s linear;
+            transform: scale(1);
             will-change: transform;
-            transform: scale(0.7);
         }
-
-        /* Glow pulse when breathing active (subtle) */
-        .sphere.breathing-active {
-            box-shadow: 
-                0 0 50px rgba(79, 172, 254, 0.8),
-                0 0 100px rgba(79, 172, 254, 0.5),
-                inset -20px -20px 40px rgba(0, 0, 0, 0.2),
-                inset 15px 15px 30px rgba(255, 255, 255, 0.25);
+        .sphere.active-glow {
+            box-shadow: 0 0 60px rgba(79,172,254,0.8), 0 0 100px rgba(79,172,254,0.4), inset 0 0 30px rgba(255,255,255,0.3);
         }
+        .sphere-icon { font-size: 3.5rem; margin-bottom: 0.5rem; color: #7ec8ff; }
+        .sphere-name { font-size: 1.6rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .phase-text { font-size: 1.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 15px cyan; }
 
-        .sphere-content {
-            z-index: 101;
-            color: white;
+        /* Circular Progress Timer */
+        .timer-container {
             position: relative;
-            pointer-events: none;
+            width: 120px;
+            height: 120px;
+            margin: 1rem 0;
         }
-
-        .sphere-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px currentColor;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
-            color: #4facfe;
+        .circular-progress {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
-
-        .sphere-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7), 0 0 15px currentColor;
-            letter-spacing: 1px;
+        .circular-progress svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotate(-90deg);
         }
-
-        .phase-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-top: 0.5rem;
-            text-shadow: 0 0 20px rgba(79,172,254,0.8);
+        .circular-progress circle {
+            fill: none;
+            stroke: #4facfe;
+            stroke-width: 4;
+            stroke-dasharray: 351; /* 2*pi*56 ≈ 351.8 */
+            stroke-dashoffset: 351;
+            transition: stroke-dashoffset 0.1s linear;
         }
-
-        /* Session timer */
-        .session-timer {
+        .timer-text {
             font-size: 1.8rem;
             font-family: monospace;
-            letter-spacing: 2px;
-            background: rgba(100,200,255,0.15);
-            backdrop-filter: blur(10px);
-            padding: 8px 24px;
-            border-radius: 50px;
-            border: 1px solid rgba(100,200,255,0.4);
-            margin: 20px 0;
-            display: inline-block;
-        }
-
-        /* Glassy buttons - all same width & responsive */
-        .controls, .duration-buttons, .sound-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .glass-btn {
-            background: rgba(100,200,255,0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(100,200,255,0.5);
+            font-weight: bold;
             color: white;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            text-shadow: 0 0 10px cyan;
+        }
+
+        /* Professional Controls Grid */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            width: 100%;
+            max-width: 350px;
+            margin: 0.5rem 0;
+        }
+        .duration-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            width: 100%;
+            max-width: 300px;
+        }
+        .sound-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.8rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 12px 0;
+            border-radius: 60px;
             font-weight: 600;
-            display: inline-flex;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            backdrop-filter: blur(8px);
+            display: flex;
             align-items: center;
-            gap: 8px;
-            min-width: 100px;
             justify-content: center;
+            gap: 8px;
         }
-
-        .glass-btn:hover {
-            background: rgba(100,200,255,0.35);
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(100,200,255,0.4);
-            border-color: rgba(100,200,255,0.8);
+        .btn-primary {
+            background: rgba(79,172,254,0.2);
+            border: 1px solid rgba(79,172,254,0.6);
+            color: #b8e1ff;
         }
-
-        .glass-btn.active {
-            background: rgba(100,200,255,0.6);
+        .btn-primary:hover { background: rgba(79,172,254,0.4); transform: scale(1.02); }
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-primary.active {
+            background: rgba(79,172,254,0.7);
             border-color: white;
-            box-shadow: 0 0 15px rgba(100,200,255,0.6);
+            color: white;
+            box-shadow: 0 0 15px cyan;
         }
 
-        /* Ensure buttons have equal width on same row */
-        @media (min-width: 600px) {
-            .glass-btn {
-                min-width: 110px;
-            }
+        /* Sound buttons - distinct purple theme */
+        .btn-sound {
+            background: rgba(180, 130, 255, 0.2);
+            border: 1px solid rgba(180, 130, 255, 0.6);
+            color: #d9b8ff;
+        }
+        .btn-sound:hover { background: rgba(180, 130, 255, 0.4); transform: scale(1.02); }
+        .btn-sound.active {
+            background: rgba(180, 130, 255, 0.7);
+            border-color: white;
+            color: white;
+            box-shadow: 0 0 15px #b482ff;
         }
 
-        @media (max-width: 480px) {
-            .glass-btn {
-                padding: 6px 12px;
-                font-size: 0.75rem;
-                min-width: 70px;
-            }
+        .duration-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 0;
+        }
+        .duration-btn.active {
+            background: rgba(79,172,254,0.6);
+            border-color: white;
+        }
+
+        @media (max-width: 550px) {
             .sphere { width: 200px; height: 200px; }
             .sphere-icon { font-size: 2.5rem; }
             .sphere-name { font-size: 1.2rem; }
             .phase-text { font-size: 1.3rem; }
+            .timer-container { width: 100px; height: 100px; }
+            .timer-text { font-size: 1.4rem; }
+            .btn { font-size: 0.8rem; padding: 8px 0; }
         }
     </style>
 </head>
 <body>
-<div class="background"></div>
+<div class="stars"></div>
 <div class="container">
     <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
 
-    <!-- Breathing Sphere (no bounce wrapper) -->
-    <div class="sphere-wrapper">
-        <div class="sphere" id="breathingSphere">
-            <div class="sphere-content">
-                <div class="sphere-icon"><i class="fas fa-wind"></i></div>
-                <div class="sphere-name">Breathing</div>
-                <div class="phase-text" id="phaseText">Inhale</div>
-            </div>
+    <!-- Breathing Sphere -->
+    <div class="sphere" id="breathingSphere">
+        <div class="sphere-icon"><i class="fas fa-wind"></i></div>
+        <div class="sphere-name">4-7-8 Breathing</div>
+        <div class="phase-text" id="phaseText">Inhale</div>
+    </div>
+
+    <!-- Circular Timer -->
+    <div class="timer-container">
+        <div class="circular-progress">
+            <svg width="120" height="120" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="56" stroke="rgba(255,255,255,0.2)" stroke-width="4" fill="none"></circle>
+                <circle id="progressCircle" cx="60" cy="60" r="56" fill="none" stroke="#4facfe" stroke-width="4" stroke-linecap="round"></circle>
+            </svg>
+            <span class="timer-text" id="timerText">00:00</span>
         </div>
     </div>
 
-    <div class="session-timer" id="sessionTimer">05:00</div>
-
-    <div class="controls">
-        <button class="glass-btn" id="startBtn"><i class="fas fa-play"></i> Start</button>
-        <button class="glass-btn" id="pauseBtn"><i class="fas fa-pause"></i> Pause</button>
-        <button class="glass-btn" id="resetBtn"><i class="fas fa-sync-alt"></i> Reset</button>
+    <!-- Control Buttons -->
+    <div class="controls-grid">
+        <button class="btn btn-primary" id="startBtn"><i class="fas fa-play"></i> Start</button>
+        <button class="btn btn-primary" id="pauseBtn"><i class="fas fa-pause"></i> Pause</button>
+        <button class="btn btn-primary" id="resetBtn"><i class="fas fa-sync-alt"></i> Reset</button>
     </div>
 
-    <div class="duration-buttons">
-        <button class="glass-btn duration-btn" data-minutes="2">2 min</button>
-        <button class="glass-btn duration-btn active" data-minutes="5">5 min</button>
-        <button class="glass-btn duration-btn" data-minutes="10">10 min</button>
+    <!-- Duration Selection -->
+    <div class="duration-grid">
+        <button class="btn duration-btn" data-minutes="2">2 min</button>
+        <button class="btn duration-btn active" data-minutes="5">5 min</button>
+        <button class="btn duration-btn" data-minutes="10">10 min</button>
     </div>
 
-    <!-- 9 Soothing Sound Buttons -->
-    <div class="sound-buttons">
-        <button class="glass-btn sound-btn" data-sound="waterfall"><i class="fas fa-water"></i> Waterfall</button>
-        <button class="glass-btn sound-btn" data-sound="rain"><i class="fas fa-cloud-rain"></i> Rain</button>
-        <button class="glass-btn sound-btn" data-sound="birds"><i class="fas fa-dove"></i> Birds</button>
-        <button class="glass-btn sound-btn" data-sound="fire"><i class="fas fa-fire"></i> Fire</button>
-        <button class="glass-btn sound-btn" data-sound="ocean"><i class="fas fa-water"></i> Ocean</button>
-        <button class="glass-btn sound-btn" data-sound="piano"><i class="fas fa-music"></i> Piano</button>
-        <button class="glass-btn sound-btn" data-sound="flute"><i class="fas fa-drumstick-bite"></i> Flute</button>
-        <button class="glass-btn sound-btn" data-sound="chimes"><i class="fas fa-bell"></i> Chimes</button>
-        <button class="glass-btn sound-btn" data-sound="whitenoise"><i class="fas fa-volume-up"></i> White Noise</button>
+    <!-- 9 Soothing Sounds (Purple theme) -->
+    <div class="sound-grid">
+        <button class="btn btn-sound sound-btn" data-sound="waterfall"><i class="fas fa-water"></i> Waterfall</button>
+        <button class="btn btn-sound sound-btn" data-sound="rain"><i class="fas fa-cloud-rain"></i> Rain</button>
+        <button class="btn btn-sound sound-btn" data-sound="birds"><i class="fas fa-dove"></i> Birds</button>
+        <button class="btn btn-sound sound-btn" data-sound="fire"><i class="fas fa-fire"></i> Fire</button>
+        <button class="btn btn-sound sound-btn" data-sound="ocean"><i class="fas fa-water"></i> Ocean</button>
+        <button class="btn btn-sound sound-btn" data-sound="piano"><i class="fas fa-music"></i> Piano</button>
+        <button class="btn btn-sound sound-btn" data-sound="flute"><i class="fas fa-drumstick-bite"></i> Flute</button>
+        <button class="btn btn-sound sound-btn" data-sound="chimes"><i class="fas fa-bell"></i> Chimes</button>
+        <button class="btn btn-sound sound-btn" data-sound="whitenoise"><i class="fas fa-volume-up"></i> White Noise</button>
     </div>
 </div>
 
 <script>
-    // --- Smooth breathing animation (no bounce, just scale) ---
+    // 4-7-8 Breathing pattern (in seconds)
+    const INHALE = 4;
+    const HOLD = 7;
+    const EXHALE = 8;
+    // Total cycle time = 4+7+8 = 19 seconds
+
+    let currentPhase = 'inhale'; // inhale, hold, exhale
+    let phaseRemaining = INHALE;
+    let isActive = false;
+    let animationFrame = null;
+    let lastTimestamp = 0;
+    let phaseStartTime = 0;
+
+    let sessionSeconds = 5 * 60; // 5 min default
+    let sessionInterval = null;
+    let isSessionActive = false;
+
+    // DOM elements
     const sphere = document.getElementById('breathingSphere');
     const phaseText = document.getElementById('phaseText');
-    const sessionTimerEl = document.getElementById('sessionTimer');
+    const timerText = document.getElementById('timerText');
+    const progressCircle = document.getElementById('progressCircle');
     const startBtn = document.getElementById('startBtn');
     const pauseBtn = document.getElementById('pauseBtn');
     const resetBtn = document.getElementById('resetBtn');
     const durationBtns = document.querySelectorAll('.duration-btn');
 
-    const INHALE_DURATION = 4000;
-    const EXHALE_DURATION = 4000;
-    const MIN_SCALE = 0.7;
-    const MAX_SCALE = 1.2;
+    // Circle circumference: 2 * pi * 56 = 351.858
+    const circumference = 2 * Math.PI * 56;
+    progressCircle.style.strokeDasharray = circumference;
 
-    let animationId = null;
-    let breathStartTime = 0;
-    let currentPhase = 'inhale';
-    let isBreathingActive = false;
-
-    // Session timer
-    let sessionSeconds = 5 * 60;
-    let sessionInterval = null;
-    let isSessionActive = false;
-
-    // Add/remove glow class on sphere when active
-    function updateGlow() {
-        if (isBreathingActive) {
-            sphere.classList.add('breathing-active');
-        } else {
-            sphere.classList.remove('breathing-active');
-        }
+    function updateProgress(phase, remaining) {
+        let totalPhaseTime = (phase === 'inhale') ? INHALE : (phase === 'hold') ? HOLD : EXHALE;
+        let fraction = (totalPhaseTime - remaining) / totalPhaseTime;
+        let dashOffset = circumference * (1 - fraction);
+        progressCircle.style.strokeDashoffset = dashOffset;
     }
 
-    function updateScale(timestamp) {
-        if (!isBreathingActive) return;
-        if (!breathStartTime) {
-            breathStartTime = timestamp;
-            requestAnimationFrame(updateScale);
+    function setPhase(newPhase) {
+        currentPhase = newPhase;
+        if (currentPhase === 'inhale') phaseRemaining = INHALE;
+        else if (currentPhase === 'hold') phaseRemaining = HOLD;
+        else phaseRemaining = EXHALE;
+        phaseText.textContent = currentPhase === 'inhale' ? 'Inhale' : (currentPhase === 'hold' ? 'Hold' : 'Exhale');
+        // Reset progress
+        updateProgress(currentPhase, phaseRemaining);
+    }
+
+    function nextPhase() {
+        if (currentPhase === 'inhale') setPhase('hold');
+        else if (currentPhase === 'hold') setPhase('exhale');
+        else setPhase('inhale');
+    }
+
+    function breathingTick(now) {
+        if (!isActive) return;
+        if (!phaseStartTime) {
+            phaseStartTime = now;
+            requestAnimationFrame(breathingTick);
             return;
         }
-        let elapsed = timestamp - breathStartTime;
-        let duration = (currentPhase === 'inhale') ? INHALE_DURATION : EXHALE_DURATION;
-        let progress = Math.min(1, elapsed / duration);
+        let elapsed = (now - phaseStartTime) / 1000;
+        if (elapsed >= phaseRemaining) {
+            // Move to next phase
+            nextPhase();
+            phaseStartTime = now;
+            elapsed = 0;
+        }
+        // Update remaining time for display
+        let remaining = Math.max(0, phaseRemaining - elapsed);
+        updateProgress(currentPhase, remaining);
+        // Update sphere scale based on phase and progress (smooth)
         let scale;
+        let progress = elapsed / phaseRemaining;
         if (currentPhase === 'inhale') {
-            scale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * progress;
+            scale = 0.7 + (progress * 0.5); // 0.7 -> 1.2
+        } else if (currentPhase === 'hold') {
+            scale = 1.2; // stay expanded
         } else {
-            scale = MAX_SCALE - (MAX_SCALE - MIN_SCALE) * progress;
+            scale = 1.2 - (progress * 0.5); // 1.2 -> 0.7
         }
         sphere.style.transform = `scale(${scale})`;
-
-        if (progress >= 1) {
-            currentPhase = (currentPhase === 'inhale') ? 'exhale' : 'inhale';
-            breathStartTime = timestamp;
-            phaseText.textContent = (currentPhase === 'inhale') ? 'Inhale' : 'Exhale';
-        }
-        animationId = requestAnimationFrame(updateScale);
+        // Add glow effect
+        if (isActive) sphere.classList.add('active-glow');
+        else sphere.classList.remove('active-glow');
+        animationFrame = requestAnimationFrame(breathingTick);
     }
 
     function startBreathing() {
-        if (animationId) cancelAnimationFrame(animationId);
-        isBreathingActive = true;
-        breathStartTime = performance.now();
-        currentPhase = 'inhale';
-        phaseText.textContent = 'Inhale';
-        updateGlow();
-        animationId = requestAnimationFrame(updateScale);
+        if (animationFrame) cancelAnimationFrame(animationFrame);
+        isActive = true;
+        phaseStartTime = performance.now();
+        setPhase('inhale');
+        animationFrame = requestAnimationFrame(breathingTick);
     }
 
     function stopBreathing() {
-        isBreathingActive = false;
-        updateGlow();
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-            animationId = null;
+        isActive = false;
+        if (animationFrame) {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = null;
         }
+        sphere.classList.remove('active-glow');
+        // Reset sphere scale to min
+        sphere.style.transform = 'scale(0.7)';
     }
 
-    // Session functions
-    function updateSessionDisplay() {
+    // Session timer with mm:ss display
+    function updateSessionTimerDisplay() {
         const mins = Math.floor(sessionSeconds / 60);
         const secs = sessionSeconds % 60;
-        sessionTimerEl.textContent = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+        timerText.textContent = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
     }
 
     function sessionTick() {
         if (!isSessionActive) return;
         if (sessionSeconds <= 0) {
+            // Session complete
             pauseSession();
-            alert('Session complete! Well done 🧘');
+            alert('🧘 Session complete! Well done.');
             return;
         }
         sessionSeconds--;
-        updateSessionDisplay();
+        updateSessionTimerDisplay();
     }
 
     function startSession() {
@@ -399,17 +427,15 @@
 
     function resetSession() {
         pauseSession();
-        const activeBtn = document.querySelector('.duration-btn.active');
-        const mins = parseInt(activeBtn.dataset.minutes);
+        const activeDuration = document.querySelector('.duration-btn.active');
+        const mins = parseInt(activeDuration.dataset.minutes);
         sessionSeconds = mins * 60;
-        updateSessionDisplay();
-        currentPhase = 'inhale';
-        sphere.style.transform = `scale(${MIN_SCALE})`;
-        phaseText.textContent = 'Inhale';
-        isBreathingActive = false;
-        updateGlow();
-        if (animationId) cancelAnimationFrame(animationId);
-        animationId = null;
+        updateSessionTimerDisplay();
+        // Reset breathing
+        stopBreathing();
+        setPhase('inhale');
+        sphere.style.transform = 'scale(0.7)';
+        updateProgress('inhale', INHALE);
     }
 
     // Duration buttons
@@ -419,7 +445,7 @@
             btn.classList.add('active');
             const mins = parseInt(btn.dataset.minutes);
             sessionSeconds = mins * 60;
-            updateSessionDisplay();
+            updateSessionTimerDisplay();
             if (!isSessionActive) resetSession();
         });
     });
@@ -428,8 +454,8 @@
     pauseBtn.addEventListener('click', pauseSession);
     resetBtn.addEventListener('click', resetSession);
 
-    // --- 9 Soothing Sounds: using reliable audio URLs (free, no CORS issues) ---
-    // For best experience, replace with local files or your own URLs.
+    // --- Sound effects with distinct purple buttons (9 sounds) ---
+    // Reliable free sound URLs (Pixabay CDN). Replace if needed.
     const soundMap = {
         waterfall: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_waterfall.mp3',
         rain: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_rain.mp3',
@@ -444,7 +470,7 @@
 
     let activeSounds = {};
 
-    function playSound(soundName, button) {
+    function toggleSound(soundName, button) {
         if (activeSounds[soundName]) {
             activeSounds[soundName].pause();
             activeSounds[soundName].currentTime = 0;
@@ -454,7 +480,7 @@
             const audio = new Audio(soundMap[soundName]);
             audio.loop = true;
             audio.volume = 0.25;
-            audio.play().catch(e => console.log('Audio play error:', e));
+            audio.play().catch(e => console.log('Audio error:', e));
             activeSounds[soundName] = audio;
             button.classList.add('active');
         }
@@ -463,11 +489,11 @@
     document.querySelectorAll('.sound-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const sound = btn.dataset.sound;
-            playSound(sound, btn);
+            toggleSound(sound, btn);
         });
     });
 
-    // Initial reset
+    // Initialize
     resetSession();
 </script>
 </body>
