@@ -37,11 +37,31 @@ function formatTime(seconds) {
 function updateSphere(index) {
     const spheres = document.querySelectorAll('.sphere');
     const dots = document.querySelectorAll('.dot');
+    const totalSpheres = meditations.length;
 
     spheres.forEach((sphere, i) => {
         sphere.classList.remove('active');
-        sphere.style.transform = `scale(0.7) translateX(${(i - index) * 500}px) rotateY(${(i - index) * 45}deg)`;
-        sphere.style.opacity = Math.abs(i - index) <= 1 ? (1 - Math.abs(i - index) * 0.3) : 0;
+        
+        // Calculate relative position with looping
+        let relativePos = i - index;
+        
+        // Wrap around for looping effect
+        if (relativePos > totalSpheres / 2) {
+            relativePos -= totalSpheres;
+        } else if (relativePos < -totalSpheres / 2) {
+            relativePos += totalSpheres;
+        }
+
+        // Calculate transforms with improved 3D perspective
+        const scale = Math.abs(relativePos) === 0 ? 1 : 0.7;
+        const translateX = relativePos * 500;
+        const rotateY = relativePos * 45;
+        const opacity = Math.abs(relativePos) <= 1 ? (1 - Math.abs(relativePos) * 0.3) : 0;
+        const zIndex = Math.abs(relativePos) === 0 ? 10 : Math.floor(10 - Math.abs(relativePos) * 5);
+
+        sphere.style.transform = `scale(${scale}) translateX(${translateX}px) rotateY(${rotateY}deg)`;
+        sphere.style.opacity = opacity;
+        sphere.style.zIndex = zIndex;
         sphere.style.pointerEvents = i === index ? 'auto' : 'none';
     });
 
@@ -72,10 +92,12 @@ sphereWrapper.addEventListener('mouseup', (e) => {
     isDragging = false;
     
     if (Math.abs(currentX) > 50) {
-        if (currentX > 0 && currentIndex > 0) {
-            updateSphere(currentIndex - 1);
-        } else if (currentX < 0 && currentIndex < meditations.length - 1) {
-            updateSphere(currentIndex + 1);
+        if (currentX > 0) {
+            // Swipe right - go to previous sphere (with looping)
+            updateSphere((currentIndex - 1 + meditations.length) % meditations.length);
+        } else if (currentX < 0) {
+            // Swipe left - go to next sphere (with looping)
+            updateSphere((currentIndex + 1) % meditations.length);
         }
     }
     
@@ -98,22 +120,24 @@ sphereWrapper.addEventListener('touchend', (e) => {
     isDragging = false;
     
     if (Math.abs(currentX) > 50) {
-        if (currentX > 0 && currentIndex > 0) {
-            updateSphere(currentIndex - 1);
-        } else if (currentX < 0 && currentIndex < meditations.length - 1) {
-            updateSphere(currentIndex + 1);
+        if (currentX > 0) {
+            // Swipe right - go to previous sphere (with looping)
+            updateSphere((currentIndex - 1 + meditations.length) % meditations.length);
+        } else if (currentX < 0) {
+            // Swipe left - go to next sphere (with looping)
+            updateSphere((currentIndex + 1) % meditations.length);
         }
     }
     
     currentX = 0;
 });
 
-// Keyboard navigation
+// Keyboard navigation with looping
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        updateSphere(currentIndex - 1);
-    } else if (e.key === 'ArrowRight' && currentIndex < meditations.length - 1) {
-        updateSphere(currentIndex + 1);
+    if (e.key === 'ArrowLeft') {
+        updateSphere((currentIndex - 1 + meditations.length) % meditations.length);
+    } else if (e.key === 'ArrowRight') {
+        updateSphere((currentIndex + 1) % meditations.length);
     }
 });
 
