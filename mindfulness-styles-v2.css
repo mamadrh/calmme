@@ -1,0 +1,446 @@
+/* ========================================
+   MINDFULNESS PORTALS - REALISTIC DESIGN
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* ===== BACK BUTTON ===== */
+.mindfulness-back-btn {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+}
+
+.mindfulness-back-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateX(-5px);
+}
+
+.mindfulness-back-btn:active {
+    transform: scale(0.95) translateX(-5px);
+}
+
+/* ===== HEADER ===== */
+.mindfulness-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.mindfulness-header h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.mindfulness-header p {
+    font-size: clamp(0.875rem, 3vw, 1rem);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 2rem 1rem;
+}
+
+/* ===== SPHERE SECTION ===== */
+.sphere-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    perspective: 1200px;
+}
+
+.sphere-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+/* ===== PORTAL SPHERES ===== */
+.portal-sphere {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    cursor: grab;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 0 30px rgba(100, 150, 255, 0.3));
+    opacity: 0;
+    transform: scale(0.4) translateZ(-300px);
+    z-index: 5;
+}
+
+.portal-sphere:active {
+    cursor: grabbing;
+}
+
+.portal-sphere.active {
+    z-index: 10;
+    transform: scale(1) translateZ(0) rotateY(0deg);
+    filter: drop-shadow(0 0 60px rgba(100, 150, 255, 0.6));
+    opacity: 1;
+}
+
+/* ===== PORTAL CONTAINER ===== */
+.portal-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5), 0 0 40px rgba(100, 150, 255, 0.3);
+}
+
+/* ===== PORTAL IMAGES (REALISTIC BACKGROUNDS) ===== */
+.portal-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    animation: portalShift 8s ease-in-out infinite;
+}
+
+@keyframes portalShift {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* JUNGLE HAVEN */
+.jungle-portal {
+    background: linear-gradient(135deg, #1a5f3f 0%, #2d8659 25%, #3ea670 50%, #5db581 75%, #1a5f3f 100%);
+    animation: jungleGlow 6s ease-in-out infinite;
+}
+
+@keyframes jungleGlow {
+    0%, 100% { filter: brightness(1) saturate(1); }
+    50% { filter: brightness(1.1) saturate(1.2); }
+}
+
+/* SEASIDE CALM */
+.seaside-portal {
+    background: linear-gradient(135deg, #0a5f7f 0%, #1a8fb3 25%, #2ba8d1 50%, #5ec8e3 75%, #0a5f7f 100%);
+    animation: seasideWave 6s ease-in-out infinite;
+}
+
+@keyframes seasideWave {
+    0%, 100% { filter: brightness(1) saturate(1); }
+    50% { filter: brightness(1.15) saturate(1.1); }
+}
+
+/* MOUNTAIN PEAK */
+.mountain-portal {
+    background: linear-gradient(135deg, #4a5f8f 0%, #6a7faf 25%, #8a9fcf 50%, #aabfdf 75%, #4a5f8f 100%);
+    animation: mountainSnow 7s ease-in-out infinite;
+}
+
+@keyframes mountainSnow {
+    0%, 100% { filter: brightness(0.9) saturate(0.8); }
+    50% { filter: brightness(1.1) saturate(1); }
+}
+
+/* FOREST PEACE */
+.forest-portal {
+    background: linear-gradient(135deg, #1a3a2a 0%, #2d5a3d 25%, #3d7a4d 50%, #5d9a6d 75%, #1a3a2a 100%);
+    animation: forestShimmer 8s ease-in-out infinite;
+}
+
+@keyframes forestShimmer {
+    0%, 100% { filter: brightness(0.95) saturate(1); }
+    50% { filter: brightness(1.05) saturate(1.15); }
+}
+
+/* DESERT STILLNESS */
+.desert-portal {
+    background: linear-gradient(135deg, #8f6a3a 0%, #c9956a 25%, #daa85a 50%, #f4c080 75%, #8f6a3a 100%);
+    animation: desertHeat 6s ease-in-out infinite;
+}
+
+@keyframes desertHeat {
+    0%, 100% { filter: brightness(1) saturate(0.9); }
+    50% { filter: brightness(1.15) saturate(1); }
+}
+
+/* CRYSTAL LAKE */
+.lake-portal {
+    background: linear-gradient(135deg, #1a6f9f 0%, #2a9fbf 25%, #5acfef 50%, #9aeeff 75%, #1a6f9f 100%);
+    animation: lakeReflect 7s ease-in-out infinite;
+}
+
+@keyframes lakeReflect {
+    0%, 100% { filter: brightness(1) saturate(1); }
+    50% { filter: brightness(1.2) saturate(1.1); }
+}
+
+/* AURORA LIGHTS */
+.aurora-portal {
+    background: linear-gradient(135deg, #1a1a4f 0%, #2d1f5f 25%, #5f2f8f 50%, #9f5fbf 75%, #1a1a4f 100%);
+    animation: auroraGlow 5s ease-in-out infinite;
+}
+
+@keyframes auroraGlow {
+    0%, 100% { filter: brightness(0.8) hue-rotate(0deg); }
+    25% { filter: brightness(1) hue-rotate(30deg); }
+    50% { filter: brightness(1.2) hue-rotate(60deg); }
+    75% { filter: brightness(1) hue-rotate(30deg); }
+}
+
+/* WATERFALL RETREAT */
+.waterfall-portal {
+    background: linear-gradient(135deg, #0f4f6f 0%, #1f7f9f 25%, #4f9fbf 50%, #8fcfef 75%, #0f4f6f 100%);
+    animation: waterfallFlow 6s ease-in-out infinite;
+}
+
+@keyframes waterfallFlow {
+    0%, 100% { filter: brightness(1) saturate(1); }
+    50% { filter: brightness(1.1) saturate(1.2); }
+}
+
+/* ZEN GARDEN */
+.zengardens-portal {
+    background: linear-gradient(135deg, #4a6f5f 0%, #6a8f7f 25%, #8aaf9f 50%, #aacfbf 75%, #4a6f5f 100%);
+    animation: zenMeditate 8s ease-in-out infinite;
+}
+
+@keyframes zenMeditate {
+    0%, 100% { filter: brightness(0.95) saturate(0.9); }
+    50% { filter: brightness(1) saturate(1); }
+}
+
+/* ===== PORTAL RING (OUTER GLOW) ===== */
+.portal-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid rgba(100, 150, 255, 0.6);
+    top: 0;
+    left: 0;
+    animation: ringPulse 3s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(100, 150, 255, 0.4), inset 0 0 20px rgba(100, 150, 255, 0.2);
+}
+
+@keyframes ringPulse {
+    0%, 100% { 
+        border-color: rgba(100, 150, 255, 0.4);
+        box-shadow: 0 0 20px rgba(100, 150, 255, 0.2), inset 0 0 20px rgba(100, 150, 255, 0.1);
+    }
+    50% { 
+        border-color: rgba(100, 150, 255, 0.8);
+        box-shadow: 0 0 40px rgba(100, 150, 255, 0.4), inset 0 0 30px rgba(100, 150, 255, 0.3);
+    }
+}
+
+/* ===== PORTAL OVERLAY (GLASS EFFECT) ===== */
+.portal-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 60%);
+    backdrop-filter: blur(2px);
+}
+
+/* ===== PORTAL CONTENT ===== */
+.portal-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 5;
+    color: white;
+}
+
+.portal-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    filter: drop-shadow(0 0 10px rgba(100, 150, 255, 0.5));
+}
+
+.portal-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.portal-description {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* ===== NAVIGATION DOTS ===== */
+.dots-container {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.dot.active {
+    background: rgba(100, 150, 255, 0.8);
+    border-color: rgba(100, 150, 255, 1);
+    transform: scale(1.4);
+    box-shadow: 0 0 15px rgba(100, 150, 255, 0.6);
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .mindfulness-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .mindfulness-header p {
+        font-size: 0.9rem;
+    }
+
+    .sphere-wrapper {
+        max-width: 100%;
+        max-height: 350px;
+    }
+
+    .portal-sphere {
+        width: 220px;
+        height: 220px;
+    }
+
+    .portal-icon {
+        font-size: 2.5rem;
+    }
+
+    .portal-name {
+        font-size: 1rem;
+    }
+
+    .portal-description {
+        font-size: 0.7rem;
+    }
+
+    .mindfulness-back-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.8rem;
+    }
+
+    .mindfulness-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .sphere-wrapper {
+        max-height: 280px;
+    }
+
+    .portal-sphere {
+        width: 180px;
+        height: 180px;
+    }
+
+    .portal-icon {
+        font-size: 2rem;
+    }
+
+    .portal-name {
+        font-size: 0.9rem;
+    }
+
+    .portal-description {
+        font-size: 0.65rem;
+    }
+
+    .mindfulness-back-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .dots-container {
+        gap: 0.6rem;
+        margin-top: 1rem;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+}
