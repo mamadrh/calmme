@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmMe - Mindfulness Portals</title>
+    <link rel="stylesheet" href="mindfulness-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Space Background with Stars -->
+    <div class="background"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Back Button -->
+        <div class="back-btn-container">
+            <a href="index-v2.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+
+        <!-- Title -->
+        <div class="mindfulness-header">
+            <h1>Mindfulness Portals</h1>
+            <p>Step into different environments for your mindfulness journey</p>
+        </div>
+
+        <!-- Portal Spheres Section -->
+        <div class="sphere-section">
+            <div id="swipeHint" style="display: none;">
+                👉 Swipe or use arrow keys 👈
+            </div>
+            
+            <div class="sphere-wrapper">
+                <!-- Portal 1: Jungle -->
+                <div class="sphere portal-sphere active">
+                    <div class="portal-preview jungle-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">🌴</div>
+                            <div class="portal-name">Jungle Haven</div>
+                            <div class="portal-description">Immerse in lush greenery</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal 2: Seaside -->
+                <div class="sphere portal-sphere">
+                    <div class="portal-preview seaside-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">🌊</div>
+                            <div class="portal-name">Seaside Calm</div>
+                            <div class="portal-description">Feel ocean waves gently</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal 3: Waterfall -->
+                <div class="sphere portal-sphere">
+                    <div class="portal-preview waterfall-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">💧</div>
+                            <div class="portal-name">Waterfall Peace</div>
+                            <div class="portal-description">Flow with pure water energy</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal 4: Mountain -->
+                <div class="sphere portal-sphere">
+                    <div class="portal-preview mountain-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">⛰️</div>
+                            <div class="portal-name">Mountain Summit</div>
+                            <div class="portal-description">Find clarity in the heights</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal 5: Forest -->
+                <div class="sphere portal-sphere">
+                    <div class="portal-preview forest-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">🌲</div>
+                            <div class="portal-name">Ancient Forest</div>
+                            <div class="portal-description">Connect with nature's wisdom</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal 6: Desert -->
+                <div class="sphere portal-sphere">
+                    <div class="portal-preview desert-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">🏜️</div>
+                            <div class="portal-name">Desert Stillness</div>
+                            <div class="portal-description">Embrace solitude and peace</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal 7: Aurora -->
+                <div class="sphere portal-sphere">
+                    <div class="portal-preview aurora-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">🌌</div>
+                            <div class="portal-name">Aurora Sky</div>
+                            <div class="portal-description">Dance with celestial lights</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal 8: Lake -->
+                <div class="sphere portal-sphere">
+                    <div class="portal-preview lake-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">🏞️</div>
+                            <div class="portal-name">Mirror Lake</div>
+                            <div class="portal-description">Reflect in still waters</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal 9: Meadow -->
+                <div class="sphere portal-sphere">
+                    <div class="portal-preview meadow-portal">
+                        <div class="portal-content">
+                            <div class="portal-icon">🌻</div>
+                            <div class="portal-name">Flower Meadow</div>
+                            <div class="portal-description">Bloom with inner joy</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="dots-container">
+            <div class="dot active" data-index="0"></div>
+            <div class="dot" data-index="1"></div>
+            <div class="dot" data-index="2"></div>
+            <div class="dot" data-index="3"></div>
+            <div class="dot" data-index="4"></div>
+            <div class="dot" data-index="5"></div>
+            <div class="dot" data-index="6"></div>
+            <div class="dot" data-index="7"></div>
+            <div class="dot" data-index="8"></div>
+        </div>
+    </div>
+
+    <!-- Audio Player -->
+    <footer class="audio-player">
+        <div class="player-container">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <input type="range" id="progressSlider" class="progress-slider" min="0" max="100" value="0">
+                <span id="timeDisplay" class="time-display">0:00 / 0:00</span>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls">
+                <!-- Play/Pause Button -->
+                <button class="control-btn" id="playPauseBtn" title="Play/Pause">
+                    <i class="fas fa-play"></i>
+                </button>
+
+                <!-- Volume Control -->
+                <div class="volume-control">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
+                    <span id="volumePercentage" class="volume-percentage">50%</span>
+                </div>
+
+                <!-- Loop Button -->
+                <button class="control-btn" id="loopBtn" title="Loop">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Audio Element -->
+    <audio id="rainAudio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_d5d5d0cef.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Script -->
+    <script src="mindfulness-script.js"></script>
+</body>
+</html>
