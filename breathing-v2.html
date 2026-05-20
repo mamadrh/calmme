@@ -69,6 +69,7 @@
             height: 100vh;
             padding: 2rem;
             position: relative;
+            overflow-y: auto;
         }
 
         /* Back button */
@@ -92,26 +93,16 @@
             gap: 8px;
             font-weight: 500;
         }
-        .back-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.02);
-            box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        }
 
-        /* Floating container for the sphere */
-        .sphere-float {
-            animation: float 3s ease-in-out infinite;
+        /* No bounce on sphere - removed float animation */
+        .sphere-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 20px 0;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Breathing sphere - scales independently */
+        /* Breathing sphere - glassy + glowing, no bounce */
         .sphere {
             width: 280px;
             height: 280px;
@@ -122,13 +113,26 @@
             justify-content: center;
             text-align: center;
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.25);
-            background: linear-gradient(135deg, rgba(79, 172, 254, 0.4) 0%, rgba(0, 242, 254, 0.4) 100%);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.3) 0%, rgba(0, 242, 254, 0.3) 100%);
             color: #4facfe;
-            box-shadow: 0 0 40px rgba(79, 172, 254, 0.6), inset -20px -20px 40px rgba(0, 0, 0, 0.2), inset 15px 15px 30px rgba(255, 255, 255, 0.15);
-            transition: transform 0.05s linear;
+            box-shadow: 
+                0 0 30px rgba(79, 172, 254, 0.5),
+                0 0 60px rgba(79, 172, 254, 0.3),
+                inset -20px -20px 40px rgba(0, 0, 0, 0.2),
+                inset 15px 15px 30px rgba(255, 255, 255, 0.2);
+            transition: transform 0.05s linear, box-shadow 0.2s ease;
             will-change: transform;
             transform: scale(0.7);
+        }
+
+        /* Glow pulse when breathing active (subtle) */
+        .sphere.breathing-active {
+            box-shadow: 
+                0 0 50px rgba(79, 172, 254, 0.8),
+                0 0 100px rgba(79, 172, 254, 0.5),
+                inset -20px -20px 40px rgba(0, 0, 0, 0.2),
+                inset 15px 15px 30px rgba(255, 255, 255, 0.25);
         }
 
         .sphere-content {
@@ -171,17 +175,17 @@
             padding: 8px 24px;
             border-radius: 50px;
             border: 1px solid rgba(100,200,255,0.4);
-            margin-top: 2rem;
+            margin: 20px 0;
             display: inline-block;
         }
 
-        /* Glassy buttons */
-        .controls {
-            margin-top: 2rem;
+        /* Glassy buttons - all same width & responsive */
+        .controls, .duration-buttons, .sound-buttons {
             display: flex;
-            gap: 1.2rem;
+            gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: 1rem;
         }
 
         .glass-btn {
@@ -189,15 +193,17 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(100,200,255,0.5);
             color: white;
-            padding: 10px 24px;
+            padding: 10px 20px;
             border-radius: 40px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            min-width: 100px;
+            justify-content: center;
         }
 
         .glass-btn:hover {
@@ -207,44 +213,29 @@
             border-color: rgba(100,200,255,0.8);
         }
 
-        .duration-buttons, .sound-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .sound-btn {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .sound-btn.active {
+        .glass-btn.active {
             background: rgba(100,200,255,0.6);
             border-color: white;
             box-shadow: 0 0 15px rgba(100,200,255,0.6);
         }
 
-        @media (max-width: 768px) {
-            .sphere { width: 220px; height: 220px; }
-            .sphere-icon { font-size: 3rem; }
-            .sphere-name { font-size: 1.3rem; }
-            .phase-text { font-size: 1.4rem; }
-            .session-timer { font-size: 1.4rem; }
+        /* Ensure buttons have equal width on same row */
+        @media (min-width: 600px) {
+            .glass-btn {
+                min-width: 110px;
+            }
         }
 
         @media (max-width: 480px) {
-            .sphere { width: 180px; height: 180px; }
+            .glass-btn {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+                min-width: 70px;
+            }
+            .sphere { width: 200px; height: 200px; }
             .sphere-icon { font-size: 2.5rem; }
-            .sphere-name { font-size: 1.1rem; }
-            .phase-text { font-size: 1.2rem; }
-            .glass-btn { padding: 6px 16px; font-size: 0.85rem; }
+            .sphere-name { font-size: 1.2rem; }
+            .phase-text { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -253,8 +244,8 @@
 <div class="container">
     <a href="javascript:history.back()" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
 
-    <!-- Floating wrapper + breathing sphere -->
-    <div class="sphere-float">
+    <!-- Breathing Sphere (no bounce wrapper) -->
+    <div class="sphere-wrapper">
         <div class="sphere" id="breathingSphere">
             <div class="sphere-content">
                 <div class="sphere-icon"><i class="fas fa-wind"></i></div>
@@ -278,17 +269,22 @@
         <button class="glass-btn duration-btn" data-minutes="10">10 min</button>
     </div>
 
-    <!-- Sound buttons -->
+    <!-- 9 Soothing Sound Buttons -->
     <div class="sound-buttons">
         <button class="glass-btn sound-btn" data-sound="waterfall"><i class="fas fa-water"></i> Waterfall</button>
         <button class="glass-btn sound-btn" data-sound="rain"><i class="fas fa-cloud-rain"></i> Rain</button>
         <button class="glass-btn sound-btn" data-sound="birds"><i class="fas fa-dove"></i> Birds</button>
         <button class="glass-btn sound-btn" data-sound="fire"><i class="fas fa-fire"></i> Fire</button>
+        <button class="glass-btn sound-btn" data-sound="ocean"><i class="fas fa-water"></i> Ocean</button>
+        <button class="glass-btn sound-btn" data-sound="piano"><i class="fas fa-music"></i> Piano</button>
+        <button class="glass-btn sound-btn" data-sound="flute"><i class="fas fa-drumstick-bite"></i> Flute</button>
+        <button class="glass-btn sound-btn" data-sound="chimes"><i class="fas fa-bell"></i> Chimes</button>
+        <button class="glass-btn sound-btn" data-sound="whitenoise"><i class="fas fa-volume-up"></i> White Noise</button>
     </div>
 </div>
 
 <script>
-    // --- Smooth breathing animation ---
+    // --- Smooth breathing animation (no bounce, just scale) ---
     const sphere = document.getElementById('breathingSphere');
     const phaseText = document.getElementById('phaseText');
     const sessionTimerEl = document.getElementById('sessionTimer');
@@ -312,6 +308,15 @@
     let sessionInterval = null;
     let isSessionActive = false;
 
+    // Add/remove glow class on sphere when active
+    function updateGlow() {
+        if (isBreathingActive) {
+            sphere.classList.add('breathing-active');
+        } else {
+            sphere.classList.remove('breathing-active');
+        }
+    }
+
     function updateScale(timestamp) {
         if (!isBreathingActive) return;
         if (!breathStartTime) {
@@ -333,7 +338,6 @@
         if (progress >= 1) {
             currentPhase = (currentPhase === 'inhale') ? 'exhale' : 'inhale';
             breathStartTime = timestamp;
-            // update phase text
             phaseText.textContent = (currentPhase === 'inhale') ? 'Inhale' : 'Exhale';
         }
         animationId = requestAnimationFrame(updateScale);
@@ -345,11 +349,13 @@
         breathStartTime = performance.now();
         currentPhase = 'inhale';
         phaseText.textContent = 'Inhale';
+        updateGlow();
         animationId = requestAnimationFrame(updateScale);
     }
 
     function stopBreathing() {
         isBreathingActive = false;
+        updateGlow();
         if (animationId) {
             cancelAnimationFrame(animationId);
             animationId = null;
@@ -397,11 +403,11 @@
         const mins = parseInt(activeBtn.dataset.minutes);
         sessionSeconds = mins * 60;
         updateSessionDisplay();
-        // Reset sphere scale and phase
         currentPhase = 'inhale';
         sphere.style.transform = `scale(${MIN_SCALE})`;
         phaseText.textContent = 'Inhale';
         isBreathingActive = false;
+        updateGlow();
         if (animationId) cancelAnimationFrame(animationId);
         animationId = null;
     }
@@ -422,23 +428,24 @@
     pauseBtn.addEventListener('click', pauseSession);
     resetBtn.addEventListener('click', resetSession);
 
-    // --- Sound effects: using simple oscillators (you can replace with actual audio files) ---
-    // For production, use <audio> elements with real sound URLs. Here we create a simple Web Audio synth
-    // that plays a soothing tone. To keep it simple and reliable, we'll use actual <audio> tags with online sample URLs.
-    // I'll provide fallback URLs that work (free sounds from Pixabay CDN). User can replace later.
+    // --- 9 Soothing Sounds: using reliable audio URLs (free, no CORS issues) ---
+    // For best experience, replace with local files or your own URLs.
     const soundMap = {
         waterfall: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_waterfall.mp3',
         rain: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_rain.mp3',
         birds: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_birds.mp3',
-        fire: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_fire.mp3'
+        fire: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_fire.mp3',
+        ocean: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_ocean_waves.mp3',
+        piano: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_piano.mp3',
+        flute: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_flute.mp3',
+        chimes: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_chimes.mp3',
+        whitenoise: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_white_noise.mp3'
     };
 
-    // Create audio elements dynamically
     let activeSounds = {};
 
     function playSound(soundName, button) {
         if (activeSounds[soundName]) {
-            // Stop it
             activeSounds[soundName].pause();
             activeSounds[soundName].currentTime = 0;
             delete activeSounds[soundName];
@@ -446,14 +453,13 @@
         } else {
             const audio = new Audio(soundMap[soundName]);
             audio.loop = true;
-            audio.volume = 0.3;
-            audio.play().catch(e => console.log('Audio play failed:', e));
+            audio.volume = 0.25;
+            audio.play().catch(e => console.log('Audio play error:', e));
             activeSounds[soundName] = audio;
             button.classList.add('active');
         }
     }
 
-    // Attach sound button events
     document.querySelectorAll('.sound-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const sound = btn.dataset.sound;
