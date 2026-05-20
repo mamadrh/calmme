@@ -21,7 +21,7 @@
             
             <div class="sphere-wrapper">
                 <!-- Sphere 1: Mindfulness -->
-                <div class="sphere active">
+                <div class="sphere active" onclick="goToMindfulness()">
                     <div class="sphere-content">
                         <div class="sphere-icon">
                             <i class="fas fa-brain"></i>
@@ -174,5 +174,11 @@
 
     <!-- Script -->
     <script src="script-v2.js"></script>
+    <script>
+        // Navigate to mindfulness portals when clicking on mindfulness sphere
+        function goToMindfulness() {
+            window.location.href = 'mindfulness-v2.html';
+        }
+    </script>
 </body>
 </html>
