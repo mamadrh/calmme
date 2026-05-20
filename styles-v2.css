@@ -72,7 +72,8 @@ body {
     justify-content: center;
     width: 100%;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    perspective: 1000px;
 }
 
 .sphere-wrapper {
@@ -81,6 +82,7 @@ body {
     height: 300px;
     cursor: grab;
     transition: opacity 0.3s ease;
+    transform-style: preserve-3d;
 }
 
 .sphere-wrapper:active {
@@ -102,6 +104,11 @@ body {
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.5), inset -30px -30px 60px rgba(0, 0, 0, 0.3), inset 20px 20px 40px rgba(255, 255, 255, 0.1);
     animation: float 3s ease-in-out infinite;
     backdrop-filter: blur(10px);
+    left: 50%;
+    top: 50%;
+    margin-left: -140px;
+    margin-top: -140px;
+    transform-style: preserve-3d;
 }
 
 @keyframes float {
@@ -132,8 +139,10 @@ body {
 
 /* Sphere Content */
 .sphere-content {
-    z-index: 2;
+    z-index: 101;
     color: white;
+    position: relative;
+    pointer-events: none;
 }
 
 .sphere-icon {
@@ -210,6 +219,8 @@ body {
     gap: 0.8rem;
     margin-bottom: 2rem;
     justify-content: center;
+    position: relative;
+    z-index: 50;
 }
 
 .dot {
@@ -262,6 +273,8 @@ body {
     border-radius: 20px 20px 0 0;
     padding: 1.5rem;
     box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 50;
 }
 
 .player-container {
@@ -418,6 +431,8 @@ body {
     .sphere {
         width: 220px;
         height: 220px;
+        margin-left: -110px;
+        margin-top: -110px;
     }
 
     .sphere-icon {
@@ -464,6 +479,8 @@ body {
     .sphere {
         width: 160px;
         height: 160px;
+        margin-left: -80px;
+        margin-top: -80px;
     }
 
     .sphere-icon {
