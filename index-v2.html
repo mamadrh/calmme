@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmMe V2 - Meditative Spheres</title>
+    <link rel="stylesheet" href="styles-v2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Space Background with Stars -->
+    <div class="background"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sphere Section -->
+        <div class="sphere-section">
+            <div id="swipeHint" style="display: none;">
+                👉 Swipe or use arrow keys 👈
+            </div>
+            
+            <div class="sphere-wrapper">
+                <!-- Sphere 1: Mindfulness -->
+                <div class="sphere active">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="sphere-name">Mindfulness</div>
+                        <div class="sphere-description">Focus on the present moment</div>
+                    </div>
+                </div>
+
+                <!-- Sphere 2: Breathing -->
+                <div class="sphere">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="sphere-name">Breathing</div>
+                        <div class="sphere-description">Deep relaxing breaths</div>
+                    </div>
+                </div>
+
+                <!-- Sphere 3: Relaxation -->
+                <div class="sphere">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <div class="sphere-name">Relaxation</div>
+                        <div class="sphere-description">Ease tension and stress</div>
+                    </div>
+                </div>
+
+                <!-- Sphere 4: Sleep -->
+                <div class="sphere">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="sphere-name">Sleep</div>
+                        <div class="sphere-description">Drift into peaceful rest</div>
+                    </div>
+                </div>
+
+                <!-- Sphere 5: Focus -->
+                <div class="sphere">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-crosshairs"></i>
+                        </div>
+                        <div class="sphere-name">Focus</div>
+                        <div class="sphere-description">Enhance concentration</div>
+                    </div>
+                </div>
+
+                <!-- Sphere 6: Gratitude -->
+                <div class="sphere">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="sphere-name">Gratitude</div>
+                        <div class="sphere-description">Appreciate life's blessings</div>
+                    </div>
+                </div>
+
+                <!-- Sphere 7: Energy -->
+                <div class="sphere">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="sphere-name">Energy</div>
+                        <div class="sphere-description">Boost vitality and power</div>
+                    </div>
+                </div>
+
+                <!-- Sphere 8: Healing -->
+                <div class="sphere">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-hands-praying"></i>
+                        </div>
+                        <div class="sphere-name">Healing</div>
+                        <div class="sphere-description">Restore balance and peace</div>
+                    </div>
+                </div>
+
+                <!-- Sphere 9: Anxiety -->
+                <div class="sphere">
+                    <div class="sphere-content">
+                        <div class="sphere-icon">
+                            <i class="fas fa-dove"></i>
+                        </div>
+                        <div class="sphere-name">Anxiety</div>
+                        <div class="sphere-description">Calm your worries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Dots -->
+        <div class="dots-container">
+            <div class="dot active" data-index="0"></div>
+            <div class="dot" data-index="1"></div>
+            <div class="dot" data-index="2"></div>
+            <div class="dot" data-index="3"></div>
+            <div class="dot" data-index="4"></div>
+            <div class="dot" data-index="5"></div>
+            <div class="dot" data-index="6"></div>
+            <div class="dot" data-index="7"></div>
+            <div class="dot" data-index="8"></div>
+        </div>
+    </div>
+
+    <!-- Audio Player -->
+    <footer class="audio-player">
+        <div class="player-container">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <input type="range" id="progressSlider" class="progress-slider" min="0" max="100" value="0">
+                <span id="timeDisplay" class="time-display">0:00 / 0:00</span>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls">
+                <!-- Play/Pause Button -->
+                <button class="control-btn" id="playPauseBtn" title="Play/Pause">
+                    <i class="fas fa-play"></i>
+                </button>
+
+                <!-- Volume Control -->
+                <div class="volume-control">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
+                    <span id="volumePercentage" class="volume-percentage">50%</span>
+                </div>
+
+                <!-- Loop Button -->
+                <button class="control-btn" id="loopBtn" title="Loop">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Audio Element -->
+    <audio id="rainAudio" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_d5d5d0cef.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Script -->
+    <script src="script-v2.js"></script>
+</body>
+</html>
