@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>CalmMe - Meditation Portals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>CalmMe - Mystic Portals</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -72,7 +72,7 @@
             position: relative;
         }
 
-        /* Back Button - Upper Left Corner (exactly like breathing tab) */
+        /* Back Button - Upper Left (exactly like breathing tab) */
         .back-btn {
             position: fixed;
             top: 24px;
@@ -127,57 +127,57 @@
             cursor: grabbing;
         }
 
-        /* Individual Portal Sphere - Pure Portal, No Text */
+        /* Individual Portal Sphere */
         .portal {
             position: absolute;
-            width: 280px;
-            height: 280px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
             transform-style: preserve-3d;
         }
 
-        /* Outer Magic Ring (fast rotation) */
+        /* Outer Energy Ring (fast rotation) */
         .portal::before {
             content: '';
             position: absolute;
-            top: -15px;
-            left: -15px;
-            right: -15px;
-            bottom: -15px;
+            top: -18px;
+            left: -18px;
+            right: -18px;
+            bottom: -18px;
             border-radius: 50%;
             background: conic-gradient(from 0deg, 
                 rgba(255,255,255,0), 
-                rgba(100,200,255,0.9), 
-                rgba(255,255,255,0.5),
-                rgba(200,100,255,0.9),
+                #00ffff, 
+                #ff00ff, 
+                #00ffff, 
                 rgba(255,255,255,0));
-            animation: spinRing 3s linear infinite;
-            z-index: -1;
+            animation: spinRing 4s linear infinite;
+            z-index: -2;
             opacity: 0.9;
-            filter: blur(2px);
+            filter: blur(4px);
         }
 
-        /* Second Inner Ring (slow opposite rotation) */
+        /* Second inner ring (opposite) */
         .portal::after {
             content: '';
             position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
             border-radius: 50%;
             background: conic-gradient(from 180deg, 
                 rgba(255,255,255,0.2), 
-                rgba(200,100,255,0.8), 
-                rgba(100,200,255,0.4),
-                rgba(200,100,255,0.8),
+                #ff66cc, 
+                #66ffcc, 
+                #ff66cc, 
                 rgba(255,255,255,0.2));
-            animation: spinRingReverse 8s linear infinite;
-            z-index: -1;
-            opacity: 0.7;
-            filter: blur(1px);
+            animation: spinRingReverse 6s linear infinite;
+            z-index: -2;
+            opacity: 0.8;
+            filter: blur(3px);
         }
 
         @keyframes spinRing {
@@ -190,75 +190,147 @@
             100% { transform: rotate(0deg); }
         }
 
-        /* Portal Inner Circle - Pure Image, No Text Overlay */
+        /* Portal Inner Container (the image + vortex) */
         .portal-inner {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             overflow: hidden;
             position: relative;
-            border: 2px solid rgba(255,255,255,0.7);
+            border: 2px solid rgba(255,255,255,0.9);
             box-shadow: 
-                0 0 20px rgba(100,200,255,0.5),
-                inset 0 0 30px rgba(255,255,255,0.2);
+                0 0 20px rgba(0,255,255,0.6),
+                inset 0 0 30px rgba(255,255,255,0.3);
             transition: all 0.3s ease;
         }
 
-        /* Environment Preview Image - Full Circle */
+        /* Environment Image - with wavy effect using SVG filter */
         .portal-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
+            filter: url(#waveFilter);
+            animation: gentleWave 3s infinite ease-in-out;
         }
 
-        /* No text overlay - removed completely */
-
-        /* Hover effect - portal expands and glows more */
-        .portal:hover .portal-inner {
-            transform: scale(1.05);
-            border-color: rgba(100,200,255,1);
-            box-shadow: 0 0 40px rgba(100,200,255,0.8), inset 0 0 40px rgba(255,255,255,0.3);
+        /* Wave animation for the image */
+        @keyframes gentleWave {
+            0% { filter: url(#waveFilter) brightness(1); }
+            50% { filter: url(#waveFilter) brightness(1.1); }
+            100% { filter: url(#waveFilter) brightness(1); }
         }
 
-        .portal:hover::before {
-            opacity: 1;
-            animation-duration: 1.5s;
-            filter: blur(3px);
-        }
-
-        /* Active portal (center) gets massive glow */
-        .portal.active .portal-inner {
-            border: 3px solid rgba(100,200,255,1);
-            box-shadow: 
-                0 0 60px rgba(100,200,255,0.9),
-                0 0 100px rgba(100,200,255,0.5),
-                inset 0 0 50px rgba(255,255,255,0.4);
-        }
-
-        .portal.active::before {
-            opacity: 1;
-            filter: blur(4px);
-            animation-duration: 2s;
-        }
-
-        /* Floating particles effect for active portal */
-        .portal.active .portal-inner::after {
-            content: '';
+        /* Vortex Swirl Overlay (animated) */
+        .portal-vortex {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
-            animation: pulseGlow 1.5s ease-in-out infinite;
+            background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.3) 80%);
             pointer-events: none;
+            z-index: 2;
+            mix-blend-mode: overlay;
+            animation: swirl 8s linear infinite;
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
+        @keyframes swirl {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* Lens Flare / Glint */
+        .portal-lens {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+            z-index: 3;
+            mix-blend-mode: screen;
+            animation: glint 3s ease-in-out infinite;
+        }
+
+        @keyframes glint {
+            0%, 100% { opacity: 0.3; transform: translate(0, 0); }
+            50% { opacity: 0.8; transform: translate(15%, 15%); }
+        }
+
+        /* Floating particles inside portal */
+        .portal-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+            background-image: radial-gradient(2px 2px at 30% 40%, white, rgba(0,0,0,0)),
+                              radial-gradient(3px 3px at 70% 80%, cyan, rgba(0,0,0,0)),
+                              radial-gradient(1px 1px at 45% 20%, magenta, rgba(0,0,0,0));
+            background-repeat: no-repeat;
+            animation: floatParticles 6s infinite alternate;
+        }
+
+        @keyframes floatParticles {
+            0% { background-position: 30% 40%, 70% 80%, 45% 20%; }
+            100% { background-position: 35% 35%, 65% 85%, 50% 15%; }
+        }
+
+        /* Hover effect - portal expands and glows */
+        .portal:hover .portal-inner {
+            transform: scale(1.05);
+            border-color: #fff;
+            box-shadow: 0 0 40px cyan, inset 0 0 40px white;
+        }
+
+        .portal:hover::before {
+            filter: blur(8px);
+            opacity: 1;
+        }
+
+        /* Active portal (center) gets extra magic */
+        .portal.active .portal-inner {
+            border: 3px solid white;
+            box-shadow: 0 0 70px cyan, 0 0 120px magenta, inset 0 0 50px white;
+        }
+
+        .portal.active .portal-vortex {
+            animation-duration: 4s;
+        }
+
+        /* ---------- EXPAND ANIMATION (click effect) ---------- */
+        .portal.expand {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) scale(1) !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            border-radius: 0 !important;
+            z-index: 9999 !important;
+            transition: all 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+        }
+
+        .portal.expand .portal-inner {
+            border-radius: 0 !important;
+            border-width: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .portal.expand .portal-image {
+            filter: none !important;
+            animation: none !important;
+            transform: scale(1.05);
         }
 
         /* Navigation Dots */
@@ -282,10 +354,10 @@
         }
 
         .dot.active {
-            background: rgba(100, 200, 255, 0.9);
+            background: cyan;
             border-color: white;
             transform: scale(1.3);
-            box-shadow: 0 0 15px rgba(100,200,255,0.8);
+            box-shadow: 0 0 15px cyan;
         }
 
         /* Responsive */
@@ -303,138 +375,136 @@
 <body>
 <div class="background"></div>
 <div class="container">
-    <!-- Back Button - Upper Left Corner (exactly like breathing tab) -->
+    <!-- Back Button - Upper Left -->
     <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
 
-    <!-- Portal Carousel -->
     <div class="portals-section">
-        <div class="portal-wrapper" id="portalWrapper">
-            <!-- Portals will be inserted dynamically -->
-        </div>
+        <div class="portal-wrapper" id="portalWrapper"></div>
     </div>
-
-    <!-- Navigation Dots (hidden on mobile via CSS) -->
     <div class="dots-container" id="dotsContainer"></div>
 </div>
 
+<!-- SVG Filter for wavy distortion -->
+<svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
+    <filter id="waveFilter" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="turbulence" baseFrequency="0.01 0.02" numOctaves="2" result="turbulence" seed="3">
+            <animate attributeName="baseFrequency" values="0.01 0.02; 0.02 0.03; 0.01 0.02" dur="6s" repeatCount="indefinite" />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="5" xChannelSelector="R" yChannelSelector="G">
+            <animate attributeName="scale" values="5; 8; 5" dur="4s" repeatCount="indefinite" />
+        </feDisplacementMap>
+    </filter>
+</svg>
+
 <script>
-    // Portal Data: each portal has image URL and destination HTML file (no text shown on portal)
+    // --- Portal Data (replace with your own images) ---
     const portals = [
-        { 
-            image: 'https://images.pexels.com/photos/1252890/forest-trees-nature-landscape-1252890.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'jungle.html'
-        },
-        { 
-            image: 'https://images.pexels.com/photos/2387873/desert-dunes-landscape-sand-2387873.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'desert.html'
-        },
-        { 
-            image: 'https://images.pexels.com/photos/457882/sea-sunset-beach-ocean-457882.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'seaside.html'
-        },
-        { 
-            image: 'https://images.pexels.com/photos/240040/forest-path-forest-nature-walking-240040.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'forest.html'
-        },
-        { 
-            image: 'https://images.pexels.com/photos/618833/mountain-landscape-nature-travel-618833.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'mountains.html'
-        },
-        { 
-            image: 'https://images.pexels.com/photos/1164724/field-meadow-nature-grass-1164724.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'meadow.html'
-        },
-        { 
-            image: 'https://images.pexels.com/photos/1227510/waterfall-nature-waterfall-nature-1227510.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'waterfall.html'
-        },
-        { 
-            image: 'https://images.pexels.com/photos/3769520/cave-mountains-landscape-rock-3769520.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'cave.html'
-        },
-        { 
-            image: 'https://images.pexels.com/photos/1933316/aurora-borealis-northern-lights-sky-night-1933316.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
-            url: 'aurora.html'
-        }
+        { image: 'images/jungle.jpg', url: 'jungle.html', fallback: 'linear-gradient(135deg, #1a5f2a, #0a2f12)' },
+        { image: 'images/desert.jpg', url: 'desert.html', fallback: 'linear-gradient(135deg, #e6b800, #b8860b)' },
+        { image: 'images/seaside.jpg', url: 'seaside.html', fallback: 'linear-gradient(135deg, #006994, #003d5c)' },
+        { image: 'images/forest.jpg', url: 'forest.html', fallback: 'linear-gradient(135deg, #2d5a2c, #1a3b1a)' },
+        { image: 'images/mountains.jpg', url: 'mountains.html', fallback: 'linear-gradient(135deg, #4a5d6c, #2c3e50)' },
+        { image: 'images/meadow.jpg', url: 'meadow.html', fallback: 'linear-gradient(135deg, #8bc34a, #558b2f)' },
+        { image: 'images/waterfall.jpg', url: 'waterfall.html', fallback: 'linear-gradient(135deg, #00aaff, #0055aa)' },
+        { image: 'images/cave.jpg', url: 'cave.html', fallback: 'linear-gradient(135deg, #2c2c3a, #1a1a24)' },
+        { image: 'images/aurora.jpg', url: 'aurora.html', fallback: 'linear-gradient(135deg, #4a0e6b, #1a0a3a)' }
     ];
 
     let currentIndex = 0;
     let isDragging = false;
     let startX = 0;
     let currentX = 0;
+    let isExpanding = false;  // prevent multiple clicks
 
-    const portalWrapper = document.getElementById('portalWrapper');
+    const wrapper = document.getElementById('portalWrapper');
     const dotsContainer = document.getElementById('dotsContainer');
 
-    // Function to navigate to portal page
-    function goToPortal(url) {
-        window.location.href = url;
+    // --- Portal Click with Expand Animation ---
+    function goToPortalWithEffect(url, portalElement) {
+        if (isExpanding) return;
+        isExpanding = true;
+
+        // Disable pointer events on wrapper to avoid interference
+        wrapper.style.pointerEvents = 'none';
+
+        // Add expand class to the clicked portal
+        portalElement.classList.add('expand');
+
+        // After expansion animation, redirect
+        setTimeout(() => {
+            window.location.href = url;
+        }, 600);  // matches the transition duration
     }
 
-    // Generate portal spheres dynamically (NO text, just image)
+    // --- Render Portal Spheres ---
     function renderPortals() {
-        portalWrapper.innerHTML = '';
-        portals.forEach((portal, idx) => {
+        wrapper.innerHTML = '';
+        portals.forEach((p, idx) => {
             const portalDiv = document.createElement('div');
             portalDiv.className = 'portal';
             portalDiv.setAttribute('data-index', idx);
-            portalDiv.onclick = () => goToPortal(portal.url);
+            portalDiv.onclick = (e) => {
+                e.stopPropagation();
+                if (!isExpanding) {
+                    goToPortalWithEffect(p.url, portalDiv);
+                }
+            };
             portalDiv.innerHTML = `
                 <div class="portal-inner">
-                    <img class="portal-image" src="${portal.image}" alt="Portal" loading="lazy">
+                    <img class="portal-image" src="${p.image}" 
+                         onerror="this.style.display='none'; this.parentElement.style.background='${p.fallback}';"
+                         alt="portal">
+                    <div class="portal-vortex"></div>
+                    <div class="portal-lens"></div>
+                    <div class="portal-particles"></div>
                 </div>
             `;
-            portalWrapper.appendChild(portalDiv);
+            wrapper.appendChild(portalDiv);
         });
     }
 
-    // Update positions (carousel logic same as index)
+    // --- Carousel Logic (same as before) ---
     function updatePortals(index) {
-        const portalElements = document.querySelectorAll('.portal');
+        const portalsEl = document.querySelectorAll('.portal');
         const dots = document.querySelectorAll('.dot');
         const total = portals.length;
 
-        portalElements.forEach((portal, i) => {
-            portal.classList.remove('active');
+        portalsEl.forEach((p, i) => {
+            p.classList.remove('active');
             let relativePos = i - index;
-            
-            // Wrap around for looping
-            if (relativePos > total / 2) relativePos -= total;
-            if (relativePos < -total / 2) relativePos += total;
+            if (relativePos > total/2) relativePos -= total;
+            if (relativePos < -total/2) relativePos += total;
 
             if (Math.abs(relativePos) <= 1) {
                 if (relativePos === 0) {
-                    portal.style.transform = `translateX(0px) scale(1) translateZ(0px)`;
-                    portal.style.opacity = 1;
-                    portal.style.zIndex = 10;
-                    portal.style.pointerEvents = 'auto';
-                    portal.classList.add('active');
+                    p.style.transform = `translateX(0px) scale(1) translateZ(0px)`;
+                    p.style.opacity = 1;
+                    p.style.zIndex = 10;
+                    p.style.pointerEvents = 'auto';
+                    p.classList.add('active');
                 } else if (relativePos === -1) {
-                    portal.style.transform = `translateX(-320px) scale(0.7) translateZ(-50px)`;
-                    portal.style.opacity = 0.6;
-                    portal.style.zIndex = 8;
-                    portal.style.pointerEvents = 'none';
+                    p.style.transform = `translateX(-340px) scale(0.65) translateZ(-60px)`;
+                    p.style.opacity = 0.6;
+                    p.style.zIndex = 8;
+                    p.style.pointerEvents = 'none';
                 } else if (relativePos === 1) {
-                    portal.style.transform = `translateX(320px) scale(0.7) translateZ(-50px)`;
-                    portal.style.opacity = 0.6;
-                    portal.style.zIndex = 8;
-                    portal.style.pointerEvents = 'none';
+                    p.style.transform = `translateX(340px) scale(0.65) translateZ(-60px)`;
+                    p.style.opacity = 0.6;
+                    p.style.zIndex = 8;
+                    p.style.pointerEvents = 'none';
                 }
             } else {
-                portal.style.opacity = 0;
-                portal.style.transform = `translateX(${relativePos * 500}px) scale(0.5)`;
-                portal.style.zIndex = 0;
-                portal.style.pointerEvents = 'none';
+                p.style.opacity = 0;
+                p.style.transform = `translateX(${relativePos * 500}px) scale(0.5)`;
+                p.style.zIndex = 0;
+                p.style.pointerEvents = 'none';
             }
         });
 
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
         currentIndex = index;
     }
 
-    // Generate navigation dots
     function renderDots() {
         dotsContainer.innerHTML = '';
         portals.forEach((_, idx) => {
@@ -442,72 +512,61 @@
             dot.className = 'dot';
             dot.setAttribute('data-index', idx);
             dot.addEventListener('click', () => {
-                updatePortals(idx);
+                if (!isExpanding) updatePortals(idx);
             });
             dotsContainer.appendChild(dot);
         });
-        const firstDot = dotsContainer.children[0];
-        if (firstDot) firstDot.classList.add('active');
+        if (dotsContainer.children[0]) dotsContainer.children[0].classList.add('active');
     }
 
-    // Swipe and drag handling (same as index)
     function bindEvents() {
-        portalWrapper.addEventListener('mousedown', (e) => {
+        wrapper.addEventListener('mousedown', (e) => {
+            if (isExpanding) return;
             isDragging = true;
             startX = e.clientX;
         });
         window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
+            if (!isDragging || isExpanding) return;
             currentX = e.clientX - startX;
-            portalWrapper.style.opacity = 1 - Math.abs(currentX) / 500;
+            wrapper.style.opacity = 1 - Math.abs(currentX) / 500;
         });
         window.addEventListener('mouseup', () => {
-            if (!isDragging) return;
+            if (!isDragging || isExpanding) return;
             isDragging = false;
             if (Math.abs(currentX) > 50) {
-                if (currentX > 0) {
-                    updatePortals((currentIndex - 1 + portals.length) % portals.length);
-                } else if (currentX < 0) {
-                    updatePortals((currentIndex + 1) % portals.length);
-                }
+                if (currentX > 0) updatePortals((currentIndex - 1 + portals.length) % portals.length);
+                else updatePortals((currentIndex + 1) % portals.length);
             }
-            portalWrapper.style.opacity = 1;
+            wrapper.style.opacity = 1;
             currentX = 0;
         });
 
-        // Touch events
-        portalWrapper.addEventListener('touchstart', (e) => {
+        wrapper.addEventListener('touchstart', (e) => {
+            if (isExpanding) return;
             isDragging = true;
             startX = e.touches[0].clientX;
         });
         window.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
+            if (!isDragging || isExpanding) return;
             currentX = e.touches[0].clientX - startX;
         });
         window.addEventListener('touchend', () => {
-            if (!isDragging) return;
+            if (!isDragging || isExpanding) return;
             isDragging = false;
             if (Math.abs(currentX) > 50) {
-                if (currentX > 0) {
-                    updatePortals((currentIndex - 1 + portals.length) % portals.length);
-                } else if (currentX < 0) {
-                    updatePortals((currentIndex + 1) % portals.length);
-                }
+                if (currentX > 0) updatePortals((currentIndex - 1 + portals.length) % portals.length);
+                else updatePortals((currentIndex + 1) % portals.length);
             }
             currentX = 0;
         });
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                updatePortals((currentIndex - 1 + portals.length) % portals.length);
-            } else if (e.key === 'ArrowRight') {
-                updatePortals((currentIndex + 1) % portals.length);
-            }
+            if (isExpanding) return;
+            if (e.key === 'ArrowLeft') updatePortals((currentIndex - 1 + portals.length) % portals.length);
+            else if (e.key === 'ArrowRight') updatePortals((currentIndex + 1) % portals.length);
         });
     }
 
-    // Initialize
     renderPortals();
     renderDots();
     bindEvents();
