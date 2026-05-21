@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>CalmMe - Meditation Portals</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,180 +14,76 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            background: radial-gradient(ellipse at center, #1a1a3f 0%, #0d0d1f 50%, #000 100%);
+            overflow: hidden;
+            height: 100vh;
             color: white;
-            overflow-x: hidden;
         }
 
-        /* Star animation */
-        .stars {
+        /* Space Background (same as index) */
+        .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            background: radial-gradient(ellipse at center, #1a1a3f 0%, #0d0d1f 50%, #000000 100%);
+            z-index: -2;
         }
-        .stars::before, .stars::after {
+
+        .background::before {
             content: '';
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
-                              radial-gradient(2px 2px at 60px 70px, #eee, rgba(0,0,0,0)),
-                              radial-gradient(1px 1px at 90px 10px, #fff, rgba(0,0,0,0));
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 60px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 10px, #fff, rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 200px 200px;
-            animation: twinkle 5s infinite;
-        }
-        @keyframes twinkle { 0%,100%{ opacity:0.3; } 50%{ opacity:1; } }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 80px 24px 100px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Page Header */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .page-header h1 {
-            font-size: 2.2rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-            background: linear-gradient(135deg, #fff, #7ec8ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 20px rgba(100,200,255,0.3);
-        }
-        .page-header p {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-top: 0.5rem;
-        }
-
-        /* Portal Grid */
-        .portals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
-            justify-items: center;
-            align-items: stretch;
-        }
-
-        /* Portal Card */
-        .portal-card {
-            width: 100%;
-            max-width: 320px;
-            border-radius: 32px;
-            background: rgba(20, 20, 40, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.2);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            position: relative;
-        }
-
-        /* Portal Ring Effect */
-        .portal-card::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            border-radius: 40px;
-            background: conic-gradient(from 0deg, rgba(255,255,255,0.2), rgba(100,200,255,0.8), rgba(255,255,255,0.2));
-            animation: spinRing 6s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            animation: twinkle 5s ease-in-out infinite;
             z-index: -1;
         }
 
-        .portal-card:hover::before {
-            opacity: 0.7;
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
 
-        @keyframes spinRing {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Portal Image Container */
-        .portal-image {
+        .background::after {
+            content: '';
+            position: absolute;
             width: 100%;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 2rem;
             position: relative;
         }
 
-        .portal-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .portal-card:hover .portal-image img {
-            transform: scale(1.08);
-        }
-
-        /* Vortex Overlay */
-        .portal-image::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
-            pointer-events: none;
-        }
-
-        /* Portal Content */
-        .portal-content {
-            padding: 1.2rem 1rem 1.5rem;
-            text-align: center;
-        }
-
-        .portal-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #7ec8ff;
-        }
-
-        .portal-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        .portal-description {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        /* Back Button (same style as breathing tab) */
+        /* Back Button - Upper Left Corner (exactly like breathing tab) */
         .back-btn {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            top: 24px;
+            left: 24px;
             background: rgba(100,200,255,0.2);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(100,200,255,0.5);
             color: white;
-            padding: 12px 24px;
-            border-radius: 60px;
+            padding: 10px 20px;
+            border-radius: 40px;
             font-size: 0.9rem;
-            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
@@ -195,20 +91,183 @@
             align-items: center;
             gap: 8px;
             z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-weight: 500;
         }
         .back-btn:hover {
             background: rgba(100,200,255,0.4);
             transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(100,200,255,0.3);
         }
 
-        /* Navigation Dots - hidden on mobile */
+        /* Portal Carousel Section */
+        .portals-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            perspective: 1200px;
+        }
+
+        .portal-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            height: 450px;
+            cursor: grab;
+            transition: opacity 0.3s ease;
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portal-wrapper:active {
+            cursor: grabbing;
+        }
+
+        /* Individual Portal Sphere - Pure Portal, No Text */
+        .portal {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        /* Outer Magic Ring (fast rotation) */
+        .portal::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, 
+                rgba(255,255,255,0), 
+                rgba(100,200,255,0.9), 
+                rgba(255,255,255,0.5),
+                rgba(200,100,255,0.9),
+                rgba(255,255,255,0));
+            animation: spinRing 3s linear infinite;
+            z-index: -1;
+            opacity: 0.9;
+            filter: blur(2px);
+        }
+
+        /* Second Inner Ring (slow opposite rotation) */
+        .portal::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 50%;
+            background: conic-gradient(from 180deg, 
+                rgba(255,255,255,0.2), 
+                rgba(200,100,255,0.8), 
+                rgba(100,200,255,0.4),
+                rgba(200,100,255,0.8),
+                rgba(255,255,255,0.2));
+            animation: spinRingReverse 8s linear infinite;
+            z-index: -1;
+            opacity: 0.7;
+            filter: blur(1px);
+        }
+
+        @keyframes spinRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spinRingReverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* Portal Inner Circle - Pure Image, No Text Overlay */
+        .portal-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.7);
+            box-shadow: 
+                0 0 20px rgba(100,200,255,0.5),
+                inset 0 0 30px rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* Environment Preview Image - Full Circle */
+        .portal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* No text overlay - removed completely */
+
+        /* Hover effect - portal expands and glows more */
+        .portal:hover .portal-inner {
+            transform: scale(1.05);
+            border-color: rgba(100,200,255,1);
+            box-shadow: 0 0 40px rgba(100,200,255,0.8), inset 0 0 40px rgba(255,255,255,0.3);
+        }
+
+        .portal:hover::before {
+            opacity: 1;
+            animation-duration: 1.5s;
+            filter: blur(3px);
+        }
+
+        /* Active portal (center) gets massive glow */
+        .portal.active .portal-inner {
+            border: 3px solid rgba(100,200,255,1);
+            box-shadow: 
+                0 0 60px rgba(100,200,255,0.9),
+                0 0 100px rgba(100,200,255,0.5),
+                inset 0 0 50px rgba(255,255,255,0.4);
+        }
+
+        .portal.active::before {
+            opacity: 1;
+            filter: blur(4px);
+            animation-duration: 2s;
+        }
+
+        /* Floating particles effect for active portal */
+        .portal.active .portal-inner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            animation: pulseGlow 1.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Navigation Dots */
         .dots-container {
             display: flex;
             gap: 0.8rem;
+            margin-bottom: 1rem;
             justify-content: center;
-            margin-top: 2rem;
+            position: relative;
             z-index: 50;
         }
 
@@ -216,8 +275,8 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -226,78 +285,85 @@
             background: rgba(100, 200, 255, 0.9);
             border-color: white;
             transform: scale(1.3);
-            box-shadow: 0 0 12px rgba(100,200,255,0.8);
+            box-shadow: 0 0 15px rgba(100,200,255,0.8);
         }
 
-        /* Hide dots on mobile */
+        /* Responsive */
         @media (max-width: 768px) {
-            .dots-container {
-                display: none;
-            }
-            .container {
-                padding: 60px 16px 90px;
-            }
-            .portals-grid {
-                gap: 1.5rem;
-            }
-            .back-btn {
-                bottom: 16px;
-                right: 16px;
-                padding: 10px 20px;
-                font-size: 0.8rem;
-            }
+            .portal { width: 220px; height: 220px; }
+            .back-btn { top: 16px; left: 16px; padding: 8px 16px; font-size: 0.8rem; }
+            .dots-container { display: none; }
         }
 
-        /* Simple fade-in animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .portal-card {
-            animation: fadeInUp 0.6s ease backwards;
+        @media (max-width: 480px) {
+            .portal { width: 180px; height: 180px; }
         }
     </style>
 </head>
 <body>
-<div class="stars"></div>
+<div class="background"></div>
 <div class="container">
-    <div class="page-header">
-        <h1>✧ MEDITATION PORTALS ✧</h1>
-        <p>step into a world of calm</p>
-    </div>
+    <!-- Back Button - Upper Left Corner (exactly like breathing tab) -->
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
 
-    <div class="portals-grid" id="portalsGrid">
-        <!-- Portal cards will be inserted here by JavaScript -->
+    <!-- Portal Carousel -->
+    <div class="portals-section">
+        <div class="portal-wrapper" id="portalWrapper">
+            <!-- Portals will be inserted dynamically -->
+        </div>
     </div>
 
     <!-- Navigation Dots (hidden on mobile via CSS) -->
     <div class="dots-container" id="dotsContainer"></div>
-
-    <a href="index-v2.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Spheres</a>
 </div>
 
 <script>
-    // Portal data with image URLs (replace with your own high-res images)
-    const portalsData = [
-        { name: 'Jungle', icon: 'fa-tree', description: 'Rainforest · Exotic birds · Serenity', image: 'https://images.pexels.com/photos/1252890/forest-trees-nature-landscape-1252890.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'jungle.html' },
-        { name: 'Desert', icon: 'fa-sun', description: 'Sand dunes · Warm breeze · Silence', image: 'https://images.pexels.com/photos/2387873/desert-dunes-landscape-sand-2387873.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'desert.html' },
-        { name: 'Seaside', icon: 'fa-water', description: 'Ocean waves · Seagulls · Fresh air', image: 'https://images.pexels.com/photos/457882/sea-sunset-beach-ocean-457882.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'seaside.html' },
-        { name: 'Forest', icon: 'fa-leaf', description: 'Pine trees · Gentle wind · Peace', image: 'https://images.pexels.com/photos/240040/forest-path-forest-nature-walking-240040.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'forest.html' },
-        { name: 'Mountains', icon: 'fa-mountain', description: 'Peaks · Fresh air · Calmness', image: 'https://images.pexels.com/photos/618833/mountain-landscape-nature-travel-618833.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'mountains.html' },
-        { name: 'Meadow', icon: 'fa-feather-alt', description: 'Flowers · Butterflies · Sunshine', image: 'https://images.pexels.com/photos/1164724/field-meadow-nature-grass-1164724.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'meadow.html' },
-        { name: 'Waterfall', icon: 'fa-fan', description: 'Cascading water · Mist · Serenity', image: 'https://images.pexels.com/photos/1227510/waterfall-nature-waterfall-nature-1227510.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'waterfall.html' },
-        { name: 'Cave', icon: 'fa-gem', description: 'Echoes · Stillness · Depth', image: 'https://images.pexels.com/photos/3769520/cave-mountains-landscape-rock-3769520.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'cave.html' },
-        { name: 'Aurora', icon: 'fa-star-of-life', description: 'Northern lights · Magic · Dreams', image: 'https://images.pexels.com/photos/1933316/aurora-borealis-northern-lights-sky-night-1933316.jpeg?auto=compress&cs=tinysrgb&w=600', url: 'aurora.html' }
+    // Portal Data: each portal has image URL and destination HTML file (no text shown on portal)
+    const portals = [
+        { 
+            image: 'https://images.pexels.com/photos/1252890/forest-trees-nature-landscape-1252890.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'jungle.html'
+        },
+        { 
+            image: 'https://images.pexels.com/photos/2387873/desert-dunes-landscape-sand-2387873.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'desert.html'
+        },
+        { 
+            image: 'https://images.pexels.com/photos/457882/sea-sunset-beach-ocean-457882.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'seaside.html'
+        },
+        { 
+            image: 'https://images.pexels.com/photos/240040/forest-path-forest-nature-walking-240040.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'forest.html'
+        },
+        { 
+            image: 'https://images.pexels.com/photos/618833/mountain-landscape-nature-travel-618833.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'mountains.html'
+        },
+        { 
+            image: 'https://images.pexels.com/photos/1164724/field-meadow-nature-grass-1164724.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'meadow.html'
+        },
+        { 
+            image: 'https://images.pexels.com/photos/1227510/waterfall-nature-waterfall-nature-1227510.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'waterfall.html'
+        },
+        { 
+            image: 'https://images.pexels.com/photos/3769520/cave-mountains-landscape-rock-3769520.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'cave.html'
+        },
+        { 
+            image: 'https://images.pexels.com/photos/1933316/aurora-borealis-northern-lights-sky-night-1933316.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop',
+            url: 'aurora.html'
+        }
     ];
 
-    const portalsGrid = document.getElementById('portalsGrid');
+    let currentIndex = 0;
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+
+    const portalWrapper = document.getElementById('portalWrapper');
     const dotsContainer = document.getElementById('dotsContainer');
 
     // Function to navigate to portal page
@@ -305,76 +371,147 @@
         window.location.href = url;
     }
 
-    // Function to generate portal cards
+    // Generate portal spheres dynamically (NO text, just image)
     function renderPortals() {
-        portalsGrid.innerHTML = '';
-        portalsData.forEach((portal, index) => {
-            const card = document.createElement('div');
-            card.className = 'portal-card';
-            card.style.animationDelay = `${index * 0.05}s`;
-            card.onclick = () => goToPortal(portal.url);
-            card.innerHTML = `
-                <div class="portal-image">
-                    <img src="${portal.image}" alt="${portal.name} portal" loading="lazy">
-                </div>
-                <div class="portal-content">
-                    <div class="portal-icon"><i class="fas ${portal.icon}"></i></div>
-                    <div class="portal-name">${portal.name}</div>
-                    <div class="portal-description">${portal.description}</div>
+        portalWrapper.innerHTML = '';
+        portals.forEach((portal, idx) => {
+            const portalDiv = document.createElement('div');
+            portalDiv.className = 'portal';
+            portalDiv.setAttribute('data-index', idx);
+            portalDiv.onclick = () => goToPortal(portal.url);
+            portalDiv.innerHTML = `
+                <div class="portal-inner">
+                    <img class="portal-image" src="${portal.image}" alt="Portal" loading="lazy">
                 </div>
             `;
-            portalsGrid.appendChild(card);
+            portalWrapper.appendChild(portalDiv);
         });
     }
 
-    // Function to generate navigation dots (visible only on desktop)
+    // Update positions (carousel logic same as index)
+    function updatePortals(index) {
+        const portalElements = document.querySelectorAll('.portal');
+        const dots = document.querySelectorAll('.dot');
+        const total = portals.length;
+
+        portalElements.forEach((portal, i) => {
+            portal.classList.remove('active');
+            let relativePos = i - index;
+            
+            // Wrap around for looping
+            if (relativePos > total / 2) relativePos -= total;
+            if (relativePos < -total / 2) relativePos += total;
+
+            if (Math.abs(relativePos) <= 1) {
+                if (relativePos === 0) {
+                    portal.style.transform = `translateX(0px) scale(1) translateZ(0px)`;
+                    portal.style.opacity = 1;
+                    portal.style.zIndex = 10;
+                    portal.style.pointerEvents = 'auto';
+                    portal.classList.add('active');
+                } else if (relativePos === -1) {
+                    portal.style.transform = `translateX(-320px) scale(0.7) translateZ(-50px)`;
+                    portal.style.opacity = 0.6;
+                    portal.style.zIndex = 8;
+                    portal.style.pointerEvents = 'none';
+                } else if (relativePos === 1) {
+                    portal.style.transform = `translateX(320px) scale(0.7) translateZ(-50px)`;
+                    portal.style.opacity = 0.6;
+                    portal.style.zIndex = 8;
+                    portal.style.pointerEvents = 'none';
+                }
+            } else {
+                portal.style.opacity = 0;
+                portal.style.transform = `translateX(${relativePos * 500}px) scale(0.5)`;
+                portal.style.zIndex = 0;
+                portal.style.pointerEvents = 'none';
+            }
+        });
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+        currentIndex = index;
+    }
+
+    // Generate navigation dots
     function renderDots() {
         dotsContainer.innerHTML = '';
-        portalsData.forEach((_, index) => {
+        portals.forEach((_, idx) => {
             const dot = document.createElement('div');
             dot.className = 'dot';
-            if (index === 0) dot.classList.add('active');
-            dot.setAttribute('data-index', index);
-            dot.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const targetIndex = parseInt(dot.getAttribute('data-index'));
-                const card = document.querySelectorAll('.portal-card')[targetIndex];
-                if (card) {
-                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    updateActiveDot(targetIndex);
-                }
+            dot.setAttribute('data-index', idx);
+            dot.addEventListener('click', () => {
+                updatePortals(idx);
             });
             dotsContainer.appendChild(dot);
         });
+        const firstDot = dotsContainer.children[0];
+        if (firstDot) firstDot.classList.add('active');
     }
 
-    function updateActiveDot(activeIndex) {
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach((dot, idx) => {
-            if (idx === activeIndex) dot.classList.add('active');
-            else dot.classList.remove('active');
+    // Swipe and drag handling (same as index)
+    function bindEvents() {
+        portalWrapper.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentX = e.clientX - startX;
+            portalWrapper.style.opacity = 1 - Math.abs(currentX) / 500;
+        });
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            if (Math.abs(currentX) > 50) {
+                if (currentX > 0) {
+                    updatePortals((currentIndex - 1 + portals.length) % portals.length);
+                } else if (currentX < 0) {
+                    updatePortals((currentIndex + 1) % portals.length);
+                }
+            }
+            portalWrapper.style.opacity = 1;
+            currentX = 0;
+        });
+
+        // Touch events
+        portalWrapper.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX - startX;
+        });
+        window.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            if (Math.abs(currentX) > 50) {
+                if (currentX > 0) {
+                    updatePortals((currentIndex - 1 + portals.length) % portals.length);
+                } else if (currentX < 0) {
+                    updatePortals((currentIndex + 1) % portals.length);
+                }
+            }
+            currentX = 0;
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                updatePortals((currentIndex - 1 + portals.length) % portals.length);
+            } else if (e.key === 'ArrowRight') {
+                updatePortals((currentIndex + 1) % portals.length);
+            }
         });
     }
 
-    // Intersection Observer to update active dot based on visible card
-    function setupObserver() {
-        const cards = document.querySelectorAll('.portal-card');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = Array.from(cards).indexOf(entry.target);
-                    if (index !== -1) updateActiveDot(index);
-                }
-            });
-        }, { threshold: 0.6 });
-
-        cards.forEach(card => observer.observe(card));
-    }
-
-    // Initialize page
+    // Initialize
     renderPortals();
     renderDots();
-    setTimeout(setupObserver, 200); // slight delay to ensure cards are rendered
+    bindEvents();
+    updatePortals(0);
 </script>
 </body>
 </html>
